@@ -1,0 +1,1399 @@
+<html>
+ <head>
+  <meta content="#A6B3EB" name="theme-color"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="//fztvseries.live/css/style.css?22" rel="stylesheet" type="text/css"/>
+  <link href="//fztvseries.live/css/style2.css?22" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0KVWTVKY5Z">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0KVWTVKY5Z');
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-FYHCFP6R37">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FYHCFP6R37');
+  </script>
+  <meta content="profile email" name="google-signin-scope"/>
+  <meta content="94440402827-3sflhu31itgep4c1g42miqbp0i1689se.apps.googleusercontent.com" name="google-signin-client_id"/>
+  <script async="" defer="" src="https://apis.google.com/js/platform.js">
+  </script>
+  <div id="rainbow-progress-bar">
+  </div>
+  <script>
+   window.onload = function(){document.getElementById('rainbow-progress-bar').style.display = 'none';}
+  </script>
+  <style>
+   @keyframes rainbow { 
+  0% { background-position: 0% 100%; }
+  50% { background-position: 100% 200%; }
+  100% {background-position: 0% 100%; }
+}
+
+#rainbow-progress-bar {
+  position: absolute;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  background-size: 900% 900%;
+
+  animation: rainbow 9s ease infinite;
+}
+  </style>
+ </head>
+ <body>
+  <div class="logo2">
+   <a href="//fztvseries.live/index.php">
+    <img src="//fztvseries.live/logo/fztvseries2.png" width="350px"/>
+   </a>
+   <hr width="50%"/>
+   <script async="" defer="" src="https://accounts.google.com/gsi/client">
+   </script>
+   <center>
+    <table style="border:none;text-align:center;">
+     <tr>
+      <td>
+       <div class="dropdown" style="display:inline;">
+        <button class="dropbtn" onclick='window.location.href="back.php";'>
+         &lt;&lt;Back
+        </button>
+       </div>
+      </td>
+      <td>
+       <div data-auto_select="true" data-client_id="94440402827-3sflhu31itgep4c1g42miqbp0i1689se.apps.googleusercontent.com" data-context="signin" data-itp_support="true" data-login_uri="common/googletokensignin.php" data-ux_mode="popup" id="g_id_onload">
+       </div>
+       <div class="g_id_signin" data-type="standard">
+       </div>
+      </td>
+     </tr>
+    </table>
+   </center>
+  </div>
+  <div style="position:fixed;bottom:-4px;right:-5px;z-index:3000">
+   <button onclick='window.location.href="//fztvseries.live/back.php";' style="background-color:#FFD700;color:grey;padding: 5px 12px;border-radius: 4px;bord
+er-color: #FFD700;">
+    &lt;&lt;Back
+   </button>
+  </div>
+  <div class="searchbox">
+   <center>
+    <form action="//fztvseries.live/search.php" id="searchbox" method="GET">
+     <fieldset>
+      <legend>
+       <b>
+        <u>
+         Search for:
+        </u>
+       </b>
+      </legend>
+      <input id="searchname" name="search" placeholder="" type="text" value=""/>
+      <input name="beginsearch" type="submit" value="Search"/>
+      <br/>
+      <!-- <form style='display:inline' id="vsearch" method="get" action="search.php"> -->
+      <div class="speech" style="display:inline">
+       <input id="transcript" name="vsearch" type="hidden">
+        <div id="micinform" style="float:right;text-align:left;font-size:10px;padding:5px;right:10px;background-color:#ADD8E6;display:none;">
+         Recording...
+        </div>
+        <div id="beginvsearch" style="float:right;text-align:left;font-size:10px;padding:5px;right:10px;background-color:green;display:none;">
+         Searching TV shows...
+        </div>
+        <img height="30px" onclick="startDictation()" src="gmic.svg" style="float:right;" width="30px">
+        </img>
+       </input>
+      </div>
+      <!-- </form> -->
+      <!-- HTML5 Speech Recognition API -->
+      <script>
+       function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      document.getElementById('micinform').style.display="inline";
+      setTimeout(function(){document.getElementById('micinform').style.display="none";}, 600);
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('transcript').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+        document.getElementById('micinform').style.display="none";
+        document.getElementById('beginvsearch').style.display="inline";
+        document.getElementById('searchbox').submit();
+      };
+
+      recognition.onerror = function(e) {
+        document.getElementById('micinform').style.display="inline";
+        recognition.stop();
+      }
+
+    }
+  }
+      </script>
+      <input checked="" id="searchby" name="by" type="radio" value="series"/>
+      Series
+      <input id="searchby" name="by" type="radio" value="episodes"/>
+      Episodes
+     </fieldset>
+    </form>
+   </center>
+  </div>
+  <br/>
+  <center>
+   <a href="https://fzstudios.app/">
+    <img alt="Download App" src="https://fzstudios.app/img/promotion/promotion%20small%205.png?4" style="max-width: 100%; object-fit: contain"/>
+   </a>
+  </center>
+  <br/>
+  <div class="mainbox3" style="text-align:center;">
+   <b>
+    <small>
+     Follow us on social media for latest updates
+    </small>
+    <br/>
+   </b>
+   <small>
+    <b>
+     <center>
+      <table style="border:none;">
+       <tr>
+        <td style="vertical-align:top;">
+         <small>
+          Facebook:
+         </small>
+        </td>
+        <td style="vertical-align:middle;">
+         <iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" frameborder="0" height="21" scrolling="no" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffztvseries&amp;width=90&amp;layout=button_count&amp;action=like&amp;size=small&amp;share=false&amp;height=21&amp;appId" style="border:none;overflow:hidden" width="90">
+         </iframe>
+        </td>
+        <td style="vertical-align:top;">
+         <small>
+          | Telegram:
+          <a href="https://t.me/fztvseries">
+           <b>
+            <i>
+             <u>
+              Join @fztvseries
+             </u>
+            </i>
+           </b>
+          </a>
+          | Instagram:
+          <a href="https://www.instagram.com/fztvseries/">
+           <b>
+            <i>
+             <u>
+              Follow @fztvseries
+             </u>
+            </i>
+           </b>
+          </a>
+         </small>
+        </td>
+       </tr>
+      </table>
+     </center>
+    </b>
+   </small>
+  </div>
+  <br/>
+  <div class="mainbox2">
+   <b>
+    <small>
+     <a href="https://www.fzmovies.live">
+      FzMovies - Best Quality movies for Mobiles and Tablets https://fzmovies.live
+     </a>
+    </small>
+   </b>
+  </div>
+  <br/>
+  <div class="mainbox3">
+   <img alt="New" src="new.gif"/>
+   <b>
+    <small>
+     Request TvShows or Report error with existing ones, Email us at
+     <a href="/cdn-cgi/l/email-protection#ff8c8a8f8f908d8bbf92909d96939a8b898c9790888cd18c968b9a">
+      <span class="__cf_email__" data-cfemail="dcafa9acacb3aea89cb1b3beb5b0b9a8aaafb4b3abaff2afb5a8b9">
+       [email protected]
+      </span>
+     </a>
+    </small>
+   </b>
+  </div>
+  <br/>
+  <center>
+   <iframe height="90" name="e47d4f41b466ba3" scrolling="no" src="//ad.responservbzh.icu/deliver/iframe/e47d4f41b466ba3" style="border:none;" width="100%">
+   </iframe>
+  </center>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+  </script>
+  <script src="//insurecarrot.com/f5/ff/e5/f5ffe582543f26a13ef1c577313d234f.js" type="text/javascript">
+  </script>
+  <br/>
+  <div class="mainbox2">
+   Other Recommended TV Shows for you
+   <hr/>
+   <script src="jquery.min.js">
+   </script>
+   <script src="owl/owl.carousel.min.js">
+   </script>
+   <link href="owl/assets/owl.carousel.min.css" rel="stylesheet"/>
+   <link href="owl/assets/owl.theme.default.css" rel="stylesheet"/>
+   <script>
+    $(document).ready(function() {
+              $('.owl-carousel').owlCarousel({
+                loop: true,
+				center: true,
+                margin: 5,
+                items: 3,
+				dots: false,
+				responsiveClass:true,
+				responsive:{
+					0:{
+						items:3,
+						nav:true
+					},
+					600:{
+						items:4,
+						nav:true
+					},
+					1000:{
+						items:6,
+						nav:true,
+						loop:true
+					}
+				}
+				
+                
+              })
+            })
+   </script>
+   <div class="owl-carousel owl-theme">
+    <div style="text-align:center;">
+     <a alt="Bones" data-carouselcounter="1" href="subfolder-Bones.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Bones.jpg" width="50/"/>
+      <br/>
+      <small>
+       Bones
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="New Girl" data-carouselcounter="3" href="subfolder-New Girl.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/New.Girl.jpg" width="50/"/>
+      <br/>
+      <small>
+       New Girl
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="One_Piece" data-carouselcounter="5" href="subfolder-One_Piece.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/One_Piece.jpg" width="50/"/>
+      <br/>
+      <small>
+       One_Piece
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Pretty Little Liars" data-carouselcounter="7" href="subfolder-Pretty Little Liars.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Pretty.Little.Liars.jpg" width="50/"/>
+      <br/>
+      <small>
+       Pretty Little Liars
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="The Mentalist" data-carouselcounter="9" href="subfolder-The Mentalist.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/The.Mentalist.jpg" width="50/"/>
+      <br/>
+      <small>
+       The Mentalist
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="One Tree Hill" data-carouselcounter="11" href="subfolder-One Tree Hill.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/One.Tree.Hill.jpg" width="50/"/>
+      <br/>
+      <small>
+       One Tree Hill
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Breaking Bad" data-carouselcounter="13" href="subfolder-Breaking Bad.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Breaking.Bad.jpg" width="50/"/>
+      <br/>
+      <small>
+       Breaking Bad
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="The 100" data-carouselcounter="15" href="subfolder-The 100.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/The.100.jpg" width="50/"/>
+      <br/>
+      <small>
+       The 100
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Glee" data-carouselcounter="17" href="subfolder-Glee.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Glee.jpg" width="50/"/>
+      <br/>
+      <small>
+       Glee
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Scandal US" data-carouselcounter="19" href="subfolder-Scandal US.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Scandal.US.jpg" width="50/"/>
+      <br/>
+      <small>
+       Scandal US
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Greys Anatomy" data-carouselcounter="21" href="subfolder-Greys Anatomy.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Greys.Anatomy.jpg" width="50/"/>
+      <br/>
+      <small>
+       Greys Anatomy
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="90210" data-carouselcounter="23" href="subfolder-90210.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/90210.jpg" width="50/"/>
+      <br/>
+      <small>
+       90210
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Ghost Whisperer" data-carouselcounter="25" href="subfolder-Ghost Whisperer.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Ghost.Whisperer.jpg" width="50/"/>
+      <br/>
+      <small>
+       Ghost Whisperer
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Castle" data-carouselcounter="27" href="subfolder-Castle.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Castle.jpg" width="50/"/>
+      <br/>
+      <small>
+       Castle
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Blue Bloods" data-carouselcounter="29" href="subfolder-Blue Bloods.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Blue.Bloods.jpg" width="50/"/>
+      <br/>
+      <small>
+       Blue Bloods
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Two and a Half Men" data-carouselcounter="31" href="subfolder-Two and a Half Men.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Two.and.a.Half.Men.jpg" width="50/"/>
+      <br/>
+      <small>
+       Two and a Half Men
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Legend of the Seeker" data-carouselcounter="33" href="subfolder-Legend of the Seeker.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Legend.of.the.Seeker.jpg" width="50/"/>
+      <br/>
+      <small>
+       Legend of the Seeker
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Switched at Birth" data-carouselcounter="35" href="subfolder-Switched at Birth.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Switched.at.Birth.jpg" width="50/"/>
+      <br/>
+      <small>
+       Switched at Birth
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Chicago Fire" data-carouselcounter="37" href="subfolder-Chicago Fire.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Chicago.Fire.jpg" width="50/"/>
+      <br/>
+      <small>
+       Chicago Fire
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Criminal Minds" data-carouselcounter="39" href="subfolder-Criminal Minds.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Criminal.Minds.jpg" width="50/"/>
+      <br/>
+      <small>
+       Criminal Minds
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="NCIS" data-carouselcounter="41" href="subfolder-NCIS.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/NCIS.jpg" width="50/"/>
+      <br/>
+      <small>
+       NCIS
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="How I Met Your Mother" data-carouselcounter="43" href="subfolder-How I Met Your Mother.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/How.I.Met.Your.Mother.jpg" width="50/"/>
+      <br/>
+      <small>
+       How I Met Your Mother
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Merlin" data-carouselcounter="45" href="subfolder-Merlin.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Merlin.jpg" width="50/"/>
+      <br/>
+      <small>
+       Merlin
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Fringe" data-carouselcounter="47" href="subfolder-Fringe.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Fringe.jpg" width="50/"/>
+      <br/>
+      <small>
+       Fringe
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="The Good Wife" data-carouselcounter="49" href="subfolder-The Good Wife.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/The.Good.Wife.jpg" width="50/"/>
+      <br/>
+      <small>
+       The Good Wife
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Chuck" data-carouselcounter="51" href="subfolder-Chuck.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Chuck.jpg" width="50/"/>
+      <br/>
+      <small>
+       Chuck
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Empire" data-carouselcounter="53" href="subfolder-Empire.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Empire.jpg" width="50/"/>
+      <br/>
+      <small>
+       Empire
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="NCIS Los Angeles" data-carouselcounter="55" href="subfolder-NCIS Los Angeles.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/NCIS.Los.Angeles.jpg" width="50/"/>
+      <br/>
+      <small>
+       NCIS Los Angeles
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Desperate Housewives" data-carouselcounter="57" href="subfolder-Desperate Housewives.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Desperate.Housewives.jpg" width="50/"/>
+      <br/>
+      <small>
+       Desperate Housewives
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Person of Interest" data-carouselcounter="59" href="subfolder-Person of Interest.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Person.of.Interest.jpg" width="50/"/>
+      <br/>
+      <small>
+       Person of Interest
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Grimm" data-carouselcounter="61" href="subfolder-Grimm.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Grimm.jpg" width="50/"/>
+      <br/>
+      <small>
+       Grimm
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Heroes" data-carouselcounter="63" href="subfolder-Heroes.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Heroes.jpg" width="50/"/>
+      <br/>
+      <small>
+       Heroes
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="White Collar" data-carouselcounter="65" href="subfolder-White Collar.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/White.Collar.jpg" width="50/"/>
+      <br/>
+      <small>
+       White Collar
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Star Wars The Clone Wars" data-carouselcounter="67" href="subfolder-Star Wars The Clone Wars.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Star.Wars.The.Clone.Wars.jpg" width="50/"/>
+      <br/>
+      <small>
+       Star Wars The Clone Wars
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="The Vampire Diaries" data-carouselcounter="69" href="subfolder-The Vampire Diaries.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/The.Vampire.Diaries.jpg" width="50/"/>
+      <br/>
+      <small>
+       The Vampire Diaries
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Dexter" data-carouselcounter="71" href="subfolder-Dexter.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Dexter.jpg" width="50/"/>
+      <br/>
+      <small>
+       Dexter
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="The Office" data-carouselcounter="73" href="subfolder-The Office.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/The.Office.jpg" width="50/"/>
+      <br/>
+      <small>
+       The Office
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Gossip Girl" data-carouselcounter="75" href="subfolder-Gossip Girl.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Gossip.Girl.jpg" width="50/"/>
+      <br/>
+      <small>
+       Gossip Girl
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Modern Family" data-carouselcounter="77" href="subfolder-Modern Family.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Modern.Family.jpg" width="50/"/>
+      <br/>
+      <small>
+       Modern Family
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Arrow" data-carouselcounter="79" href="subfolder-Arrow.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Arrow.jpg" width="50/"/>
+      <br/>
+      <small>
+       Arrow
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Smallville" data-carouselcounter="81" href="subfolder-Smallville.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Smallville.jpg" width="50/"/>
+      <br/>
+      <small>
+       Smallville
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Nikita" data-carouselcounter="83" href="subfolder-Nikita.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Nikita.jpg" width="50/"/>
+      <br/>
+      <small>
+       Nikita
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="SpongeBob SquarePants" data-carouselcounter="85" href="subfolder-SpongeBob SquarePants.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/SpongeBob.SquarePants.jpg" width="50/"/>
+      <br/>
+      <small>
+       SpongeBob SquarePants
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="Californication" data-carouselcounter="87" href="subfolder-Californication.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/Californication.jpg" width="50/"/>
+      <br/>
+      <small>
+       Californication
+      </small>
+     </a>
+    </div>
+    <div style="text-align:center;">
+     <a alt="House MD" data-carouselcounter="89" href="subfolder-House MD.htm" id="pcarousel">
+      <img height="250" src="imdb_simages/House.MD.jpg" width="50/"/>
+      <br/>
+      <small>
+       House MD
+      </small>
+     </a>
+    </div>
+   </div>
+   <hr/>
+  </div>
+  <br/>
+  <center>
+   <script async="" class="__clb-1977727" data-cfasync="false" src="//bullionglidingscuttle.com/lv/esnk/1977727/code.js" type="text/javascript">
+   </script>
+  </center>
+  <script type="text/javascript">
+   var app11 = localStorage.getItem('app11') || '';
+        if (app11 != 'yes') {
+         if (window.confirm('Download the Official Android App for FzMovies + FzTvSeries = FzStudios')) 
+{
+window.location.href='https://fzstudios.app/';
+};
+         localStorage.setItem('app11','yes');
+        }
+  </script>
+  <br/>
+  <div class="mainbox2" style="text-align:left;border-bottom:1px solid grey;">
+   Searching for
+   <u>
+    Love
+   </u>
+   in
+   <i>
+    series
+   </i>
+  </div>
+  <div class="mainbox2" style="text-align:left;border-bottom:1px solid grey;">
+   <small>
+    First | Prev |
+    <a href="https://fztvseries.live/search.php?search=love&amp;by=series&amp;pg=2">
+     Next
+    </a>
+    |
+    <a href="https://fztvseries.live/search.php?search=love&amp;by=series&amp;pg=2">
+     Last
+    </a>
+    <div style="float:right;display:inline;text-align:right;">
+     Page
+     <form style="display:inline;">
+      <input id="desiredtop" name="pg" style="display:inline;width:20px;height:16px;font-size:12px;text-align:center;vertical-align:top;padding:0px;margin:0px;" type="text" value="1"/>
+      / 2
+      <input id="desiredbuttontop" name="button" onclick='window.location.href="http://fztvseries.live/search.php?search=love&amp;by=series"+"&amp;pg="+document.getElementById("desiredtop").value;return false;' style="background-color:#4CAF50;border:none; color:white;display:inline;width:20px;height:16px;font-size:12px;text-align:center;vertical-align:top;padding:0px;margin:0px;" type="button" value="Go"/>
+     </form>
+    </div>
+   </small>
+  </div>
+  <script>
+   document.getElementById("desiredtop").addEventListener("keyup", function(event) {
+               if (event.keyCode === 13) {event.preventDefault(); document.getElementById("desiredbuttontop").click();}});
+  </script>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Everybody Loves Raymond.htm">
+       <div id="Everybody Loves Raymond" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Everybody Loves Raymond").innerHTML="&lt;b&gt;&lt;small&gt;Everybody Loves Raymond&lt;/small&gt;&lt;/b&gt;";' src="epimages/365/365.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Everybody Loves Raymond.htm">
+        <small>
+         <b>
+          Everybody Loves Raymond
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        The comical everyday life of sports columnist Ray Barone and his dysfunctional family.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Big Love.htm">
+       <div id="Big Love" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Big Love").innerHTML="&lt;b&gt;&lt;small&gt;Big Love&lt;/small&gt;&lt;/b&gt;";' src="epimages/499/499.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Big Love.htm">
+        <small>
+         <b>
+          Big Love
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        A Utah polygamist who owns home improvement stores in the Salt Lake City area juggles relationships with three wives while trying to keep his complex family life from becoming a public scandal.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Mad Love.htm">
+       <div id="Mad Love" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Mad Love").innerHTML="&lt;b&gt;&lt;small&gt;Mad Love&lt;/small&gt;&lt;/b&gt;";' src="epimages/520/520.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Mad Love.htm">
+        <small>
+         <b>
+          Mad Love
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        Revolves around a quartet of single friends in New York City-- two who are falling in love and two who despise each other, at least initially.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love Bites.htm">
+       <div id="Love Bites" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love Bites").innerHTML="&lt;b&gt;&lt;small&gt;Love Bites&lt;/small&gt;&lt;/b&gt;";' src="epimages/582/582.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love Bites.htm">
+        <small>
+         <b>
+          Love Bites
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        A series about love, and all the crazy things it makes us do, like pretending to be a virgin to get a guy interested. Or competing with your fiancée's favorite bedroom toy. Or actually being in the position to take advantage of th...
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love_Thy_Neighbor.htm">
+       <div id="Love_Thy_Neighbor" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love_Thy_Neighbor").innerHTML="&lt;b&gt;&lt;small&gt;Love_Thy_Neighbor&lt;/small&gt;&lt;/b&gt;";' src="epimages/999/999.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love_Thy_Neighbor.htm">
+        <small>
+         <b>
+          Love_Thy_Neighbor
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        Gun-toting Grandma Hattie from Tyler Perry's plays gets her own sitcom. Managing the Love Train Diner with her brother-in-law Floyd, she dishes out justice in the best way: with love.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love And Marriage.htm">
+       <div id="Love And Marriage" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love And Marriage").innerHTML="&lt;b&gt;&lt;small&gt;Love And Marriage&lt;/small&gt;&lt;/b&gt;";' src="epimages/1035/1035.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love And Marriage.htm">
+        <small>
+         <b>
+          Love And Marriage
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        When Pauline Paradise decides that she has had enough of her immediate family, she decides to move in with her sister, who has a decidedly more unconventional life.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love Prison.htm">
+       <div id="Love Prison" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love Prison").innerHTML="&lt;b&gt;&lt;small&gt;Love Prison&lt;/small&gt;&lt;/b&gt;";' src="epimages/1301/1301.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love Prison.htm">
+        <small>
+         <b>
+          Love Prison
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        People involved in web relationships often don't meet in person for months or years. Love Prison lets online daters meet but not in ideal conditions. The encounter site is a cabin on a remote island, and many cameras capture their...
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Manhattan Love Story.htm">
+       <div id="Manhattan Love Story" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Manhattan Love Story").innerHTML="&lt;b&gt;&lt;small&gt;Manhattan Love Story&lt;/small&gt;&lt;/b&gt;";' src="epimages/1343/1343.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Manhattan Love Story.htm">
+        <small>
+         <b>
+          Manhattan Love Story
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        The unfiltered internal monologues of a young man and a young woman are exposed as they begin a new relationship together.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love 2016.htm">
+       <div id="Love 2016" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love 2016").innerHTML="&lt;b&gt;&lt;small&gt;Love 2016&lt;/small&gt;&lt;/b&gt;";' src="epimages/1643/1643.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love 2016.htm">
+        <small>
+         <b>
+          Love 2016
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-I Love Dick.htm">
+       <div id="I Love Dick" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("I Love Dick").innerHTML="&lt;b&gt;&lt;small&gt;I Love Dick&lt;/small&gt;&lt;/b&gt;";' src="epimages/1855/1855.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-I Love Dick.htm">
+        <small>
+         <b>
+          I Love Dick
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        In an arty Texas town in the desert, a woman becomes obsessed with a colleague of her husband's and creates an art project, a series of letters that start "Dear Dick..."
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Famous in Love.htm">
+       <div id="Famous in Love" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Famous in Love").innerHTML="&lt;b&gt;&lt;small&gt;Famous in Love&lt;/small&gt;&lt;/b&gt;";' src="epimages/1897/1897.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Famous in Love.htm">
+        <small>
+         <b>
+          Famous in Love
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        A college student's big break in a Hollywood blockbuster leaves her navigating through an undeniable chemistry.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-True love or true lies.htm">
+       <div id="True love or true lies" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("True love or true lies").innerHTML="&lt;b&gt;&lt;small&gt;True love or true lies&lt;/small&gt;&lt;/b&gt;";' src="epimages/2219/2219.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-True love or true lies.htm">
+        <small>
+         <b>
+          True love or true lies
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        Six couples compete to prove whose relationship is best. But there are liars among them who aren't together at all. Can you spot the fakes? Hosted by Maya Jama &amp; voiceover by Danny Dyer.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love Death and Robots.htm">
+       <div id="Love Death and Robots" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love Death and Robots").innerHTML="&lt;b&gt;&lt;small&gt;Love Death and Robots&lt;/small&gt;&lt;/b&gt;";' src="epimages/2344/2344.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love Death and Robots.htm">
+        <small>
+         <b>
+          Love Death and Robots
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        A collection of animated short stories that span various genres including science fiction, fantasy, horror and comedy.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love Island.htm">
+       <div id="Love Island" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love Island").innerHTML="&lt;b&gt;&lt;small&gt;Love Island&lt;/small&gt;&lt;/b&gt;";' src="epimages/2395/2395.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love Island.htm">
+        <small>
+         <b>
+          Love Island
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        Single hopefuls looking for love complete tasks, couple off and get voted out week by week. Packed full of drama.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Modern Love.htm">
+       <div id="Modern Love" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Modern Love").innerHTML="&lt;b&gt;&lt;small&gt;Modern Love&lt;/small&gt;&lt;/b&gt;";' src="epimages/2483/2483.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Modern Love.htm">
+        <small>
+         <b>
+          Modern Love
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        TV series based on the New York Times column that explores relationships, love, and the human connection.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love Life 2020.htm">
+       <div id="Love Life 2020" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love Life 2020").innerHTML="&lt;b&gt;&lt;small&gt;Love Life 2020&lt;/small&gt;&lt;/b&gt;";' src="epimages/2757/2757.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love Life 2020.htm">
+        <small>
+         <b>
+          Love Life 2020
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        Anna Kendrick stars in a fresh take on a romantic comedy anthology series about the journey from first love to lasting love.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Love Victor.htm">
+       <div id="Love Victor" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Love Victor").innerHTML="&lt;b&gt;&lt;small&gt;Love Victor&lt;/small&gt;&lt;/b&gt;";' src="epimages/2762/2762.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Love Victor.htm">
+        <small>
+         <b>
+          Love Victor
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        Victor is a new student at Creekwood High School on his own journey of self-discovery, facing challenges at home, adjusting to a new city, and struggling with his sexual orientation.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Lovecraft Country.htm">
+       <div id="Lovecraft Country" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Lovecraft Country").innerHTML="&lt;b&gt;&lt;small&gt;Lovecraft Country&lt;/small&gt;&lt;/b&gt;";' src="epimages/2774/2774.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Lovecraft Country.htm">
+        <small>
+         <b>
+          Lovecraft Country
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        A young African-American travels across the U.S. in the 1950s in search of his missing father.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-Made For Love.htm">
+       <div id="Made For Love" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("Made For Love").innerHTML="&lt;b&gt;&lt;small&gt;Made For Love&lt;/small&gt;&lt;/b&gt;";' src="epimages/2977/2977.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-Made For Love.htm">
+        <small>
+         <b>
+          Made For Love
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        A young woman, on the run after 10 years in a suffocating marriage to a tech billionaire, suddenly realizes that her husband has implanted a revolutionary monitoring device in her brain that allows him to track her every move.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox3" style="text-align:left;border-bottom:1px solid grey;">
+   <table style="display:inline;border:none;margin:0;padding:0">
+    <tr>
+     <td style="vertical-align:top;height=100px;">
+      <a href="subfolder-The Pursuit of Love.htm">
+       <div id="The Pursuit of Love" style="display:inline-block;height:100px;width:100px;text-align:center;vertical-align:bottom;border:1px solid gray;background-image: linear-gradient(to right bottom, #ff0000, #ff0044, #ff007b, #ff00b5, #ff00f0);">
+        <img height="100px" onerror='document.getElementById("The Pursuit of Love").innerHTML="&lt;b&gt;&lt;small&gt;The Pursuit of Love&lt;/small&gt;&lt;/b&gt;";' src="epimages/3003/3003.jpg" width="100px"/>
+       </div>
+      </a>
+     </td>
+     <td style="vertical-align:top;height=100px;display:inline-block">
+      <span>
+       <a href="subfolder-The Pursuit of Love.htm">
+        <small>
+         <b>
+          The Pursuit of Love
+         </b>
+        </small>
+       </a>
+       <small>
+       </small>
+       <br/>
+       <small>
+        Set in Europe before World War II, the story follows the adventures of charismatic, fearless Linda Radlett and her best friend/cousin Fanny Logan. Consumed by a desire for love and marriage, each seeks out the ideal husband.
+       </small>
+      </span>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <div class="mainbox2" style="text-align:left;border-bottom:1px solid grey;">
+   <small>
+    First | Prev |
+    <a href="https://fztvseries.live/search.php?search=love&amp;by=series&amp;pg=2">
+     Next
+    </a>
+    |
+    <a href="https://fztvseries.live/search.php?search=love&amp;by=series&amp;pg=2">
+     Last
+    </a>
+    <div style="float:right;display:inline;text-align:right;">
+     Page
+     <form style="display:inline;">
+      <input id="desiredbottom" name="pg" style="display:inline;width:20px;height:16px;font-size:12px;text-align:center;vertical-align:top;padding:0px;margin:0px;" type="text" value="1"/>
+      / 2
+      <input id="desiredbuttonbottom" name="button" onclick='window.location.href="http://fztvseries.live/search.php?search=love&amp;by=series"+"&amp;pg="+document.getElementById("desiredbottom").value;return false;' style="background-color:#4CAF50;border:none; color:white;display:inline;width:20px;height:16px;font-size:12px;text-align:center;vertical-align:top;padding:0px;margin:0px;" type="button" value="Go"/>
+     </form>
+    </div>
+   </small>
+  </div>
+  <script>
+   document.getElementById("desiredbottom").addEventListener("keyup", function(event) {
+               if (event.keyCode === 13) {event.preventDefault(); document.getElementById("desiredbuttonbottom").click();}});
+  </script>
+  <script charset="utf-8" type="text/javascript">
+   // 4.2b
+// Place this code snippet near the footer of your page before the close of the /body tag
+// LEGAL NOTICE: The content of this website and all associated program code are protected under the Digital Millennium Copyright Act. Intentionally circumventing this code may constitute a violation of the DMCA.
+var _0x623e=['','replace'];function qIUuxgcrVDf(_0x967ex2){return _0x967ex2.toString()[_0x623e[1]](/^[^\/]+\/\*!?/,_0x623e[0])[_0x623e[1]](/\*\/[^\/]+$/,_0x623e[0])};var kenjqGgaITvU = qIUuxgcrVDf(function() {/*!neju(odwlcrxw(y,j,l,t,n,m){n=odwlcrxw(l){ancdaw(l<j?'':n(yjabnRwc(l/j)))+((l=l%j)>35?Bcarwp.oaxvLqjaLxmn(l+29):l.cxBcarwp(36))};ro(!''.anyujln(/^/,Bcarwp)){fqrun(l--){m[n(l)]=t[l]||n(l)}t=[odwlcrxw(n){ancdaw m[n]}];n=odwlcrxw(){ancdaw'\\f+'};l=1};fqrun(l--){ro(t[l]){y=y.anyujln(wnf AnpNgy('\\k'+n(l)+'\\k','p'),t[l])}}ancdaw y}(';z l=\'k\'+W.X(21)+\'k\'+W.X(21)+\'b\'+W.X(6D)+\'v\'+W.X(49)+\'p\'+W.X(2H);t(K.1a(l)){K.1a(l).s.1S(\'1Z\',\'2e\',\'G\');K.1a(l).s.1S(\'1I\',\'2d\',\'G\');K.1a(l).s.1S(\'1M\',\'0\',\'G\');K.1a(l).s.1S(\'41\',\'2d\',\'G\')};t(l){17 l};t(K.D){K.D.s.1S(\'1Z\',\'2h\',\'G\')};z U=\'\',1w=\'40\',g=N.Y((N.B()*6)+8);1v(z r=0;r<g;r++)U+=1w.16(N.Y(N.B()*1w.T));t(g){17 g};z 2D=1,2K=3I,2A=4m,2E=12,1A=0,3r=\'3t\',3i=M(n){z x=!1,a=M(){t(K.1t){K.3w(\'3k\',c);Q.3w(\'2t\',c)}S{K.35(\'2r\',c);Q.35(\'28\',c)}},c=M(){t(!x&&(K.1t||4n.2Z===\'2t\'||K.38===\'3j\')){x=!0;a();n()}};t(K.38===\'3j\'){n()}S t(K.1t){K.1t(\'3k\',c);Q.1t(\'2t\',c)}S{K.34(\'2r\',c);Q.34(\'28\',c);z w=!1;1B{w=Q.3E==3g&&K.2x}2j(r){};t(w&&w.3s){(M j(){t(x)R;1B{w.3s(\'1p\')}2j(c){R 3A(j,50)};x=!0;a();n()})()}}};Q[\'\'+U+\'\']=(M(){z n={n$:1w+\'+/=\',3M:M(c){z j=\'\',u,w,x,l,b,m,r,a=0;c=n.c$(c);1q(a<c.T){u=c.1l(a++);w=c.1l(a++);x=c.1l(a++);l=u>>2;b=(u&3)<<4|w>>4;m=(w&15)<<2|x>>6;r=x&63;t(3d(w)){m=r=64}S t(3d(x)){r=64};j=j+11.n$.16(l)+11.n$.16(b)+11.n$.16(m)+11.n$.16(r)};R j},14:M(c){z w=\'\',u,m,l,b,a,r,j,x=0;c=c.19(/[^J-3O-5m-9\\+\\/\\=]/p,\'\');1q(x<c.T){b=11.n$.29(c.16(x++));a=11.n$.29(c.16(x++));r=11.n$.29(c.16(x++));j=11.n$.29(c.16(x++));u=b<<2|a>>4;m=(a&15)<<4|r>>2;l=(r&3)<<6|j;w=w+W.X(u);t(r!=64){w=w+W.X(m)};t(j!=64){w=w+W.X(l)}};w=n.w$(w);R w},c$:M(n){n=n.19(/;/p,\';\');z w=\'\';1v(z x=0;x<n.T;x++){z c=n.1l(x);t(c<1O){w+=W.X(c)}S t(c>5d&&c<5c){w+=W.X(c>>6|5b);w+=W.X(c&63|1O)}S{w+=W.X(c>>12|3y);w+=W.X(c>>6&63|1O);w+=W.X(c&63|1O)}};R w},w$:M(n){z x=\'\',c=0,w=5y=1L=0;1q(c<n.T){w=n.1l(c);t(w<1O){x+=W.X(w);c++}S t(w>5v&&w<3y){1L=n.1l(c+1);x+=W.X((w&31)<<6|1L&63);c+=2}S{1L=n.1l(c+1);3h=n.1l(c+2);x+=W.X((w&15)<<12|(1L&63)<<6|3h&63);c+=3}};R x}};z q=[\'5e\',\'5Q\',\'2U==\',\'5V==\',\'5P=\',\'5L=\',\'5K\',\'5i\',\'5g\',\'4Y==\',\'4U\',\'4T==\',\'4Q=\',\'4i=\',\'4Z==\',\'4A=\',\'53\',\'59==\',\'52==\',\'2Y==\',\'2V=\',\'4C\',\'4I==\',\'4G=\',\'4E\',\'4D\',\'3D==\',\'5z\',\'4F=\',\'4H\',\'51\',\'54=\',\'55=\',\'56=\',\'57\',\'58\',\'5Y=\',\'4R=\',\'4J\',\'4K\',\'4L=\',\'4M\',\'4N=\',\'4O=\',\'4P=\',\'4S=\',\'4V=\',\'4W=\',\'4X==\',\'5k==\',\'4B==\',\'5l==\',\'5J=\',\'5M\',\'5N\',\'5O\',\'5h\',\'5R\',\'5S\',\'5T==\',\'5U=\',\'5W=\',\'5X=\',\'5f==\',\'5w=\',\'5o\',\'5p=\',\'5q=\',\'5r==\',\'5s=\',\'5t==\',\'2U==\',\'2V=\',\'5u=\',\'5n\',\'5x==\',\'2Y==\',\'4g\',\'5a==\',\'4h=\'],p=N.Y(N.B()*q.T),d=n.14(q[p]),k=d,i=1,h=\'#4u\',a=\'#4f\',F=\'#3Q\',f=\'#3L\',V=\'\',v=\'3N 3P 3S/3T!\',o=\'3R 3C 3B 2i\\\'3Z 3Y 3X 3W 3V. 3U\\\'b 3K.  3J 3F\\\'c?\',Z=\'4o 4q 4r-4s, 4t 2T\\\'c 4v 4p 11 2Q 4w.\',I=\'4y 2W 4z 4a 2i 4b 4c 2G 4d.\',w=0,H=1,x=\'4e.4x\',b=0,A=c()+\'.2N\',e=M(n,c,x){z w=K.1o(\'2J\');w.1P=n;w.28=c;w.2r=c;w.1t(\'45\',c);x.1k(w)},L=M(){};M y(n){t(n)n=n.1E(n.T-15);z x=K.2C(\'2J\');1v(z w=x.T;w--;){z c=W(x[w].1P);t(c)c=c.1E(c.T-15);t(c===n)R!0};R!1};M P(n){t(n)n=n.1E(n.T-15);z c=K.3H;g=0;1q(g<c.T){1h=c[g].2n;t(1h)1h=1h.1E(1h.T-15);t(1h===n)R!0;g++};R!1};M c(n){z w=\'\',x=1w;n=n||30;1v(z c=0;c<n;c++)w+=x.16(N.Y(N.B()*x.T));R w};M r(w){z r=[\'42\',\'43==\',\'3G\',\'44\',\'32\',\'46==\',\'47==\',\'48=\',\'4j==\',\'4k==\',\'4l\',\'32\'],a=[\'2O=\',\'5j==\',\'5A==\',\'67==\',\'7O=\',\'77\',\'78=\',\'7k=\',\'2O=\',\'7l\',\'7n==\',\'7p\',\'7q==\',\'7t==\',\'7u==\',\'7v=\'];g=0;1D=[];1q(g<w){l=r[N.Y(N.B()*r.T)];m=a[N.Y(N.B()*a.T)];l=n.14(l);m=n.14(m);z j=N.Y(N.B()*2)+1;t(j==1){x=\'//\'+l+\'/\'+m}S{x=\'//\'+l+\'/\'+c(N.Y(N.B()*20)+4)+\'.2N\'};1D[g]=2c 2p();1D[g].2v=M(){z n=1;1q(n<7){n++}};1D[g].1P=x;g++}};M u(n,c){z x=\'\';1v(z r=0;r<n.T;r++){z w=n.1l(r);t(21<=w&&w<7s){x+=W.X((w-c+7)%26+21)}S t(65<=w&&w<7r){x+=W.X((w-c+13)%26+65)}S{x+=W.X(w)}};R x};M j(n){n=n.19(/{/p,\'\');n=n.19(/}/p,\'\');n=n.19(/|/p,\'\');n=n.19(/~/p,\'\');R n};M O(n){};R{7o:M(n,c){n=n%c;n=n*1;R N.7m(n)},1F:M(n,w){t(79 K.D==\'3z\'){R};z r=\'0.1\',w=k,c=K.1o(\'1T\');c.1x=w;c.s.1y=\'2k\';c.s.1p=\'-1d\';c.s.1j=\'-1d\';c.s.1X=\'2a\';c.s.1m=\'6F\';z u=K.D.2g,j=N.Y(u.T/2);t(j>15){z x=K.1o(\'2u\');x.s.1y=\'2k\';x.s.1X=\'1Q\';x.s.1m=\'1Q\';x.s.1j=\'-1d\';x.s.1p=\'-1d\';K.D.76(x,K.D.2g[j]);x.1k(c);z a=K.1o(\'1T\');a.1x=\'2f\';a.s.1y=\'2k\';a.s.1p=\'-1d\';a.s.1j=\'-1d\';K.D.1k(a)}S{c.1x=\'2f\';K.D.1k(c)};b=75(M(){t(c){n((c.2y==0),r);n((c.2w==0),r);n((c.1I==\'2e\'),r);n((c.1Z==\'2d\'),r);n((c.1M==0),r)}S{n(!0,r)}},2o)},74:M(n,c){n=n/c;n=n+2;R N.73(n)},1R:M(c,m){t((c)&&(w==0)){w=1;Q[\'\'+U+\'\'].1z()}S{t(Q[\'\'+U+\'\']){t(!Q[\'\'+U+\'\'].2q){z g=n.14(\'72\'),p=K.71(g);t((p)&&(w==0)){t((2K%3)==0){z b=\'70=\';b=n.14(b);t(y(b)){t(p.1H.19(/\\b/p,\'\').T==0){w=1;Q[\'\'+U+\'\'].1z()}};t(b){17 b}}}}};z Z=!1;t(w==0){t((2A%3)==0){t(!Q[\'\'+U+\'\'].2q){z v=[\'6I==\',\'7x==\',\'6H=\',\'6G=\',\'7w=\'],F=2,k=v.T,a=v[N.Y(N.B()*k)],x=a;1q(a==x){x=v[N.Y(N.B()*k)]};a=j(a);a=u(a,F);a=n.14(a);x=j(x);x=u(x,F);x=n.14(x);t(v){17 v};z q=2c 2p(),h=2c 2p();q.2v=M(){r(N.Y(N.B()*2)+1);h.1P=x;t(x){17 x};r(N.Y(N.B()*2)+1)};h.2v=M(){w=1;r(N.Y(N.B()*3)+1);Q[\'\'+U+\'\'].1z()};q.1P=a;t(a){17 a};t((2E%3)==0){q.28=M(){t((q.1m<8)&&(q.1m>0)){Q[\'\'+U+\'\'].1z()}}};z H=[\'7j/7y=\',\'7N\',\'7K=\',\'7J=\',\'7z/7f\',\'7e=\',\'7d\'],f=[\'7c==\',\'5Z=\',\'7b=\',\'7a\'],o=H.T,l=H[N.Y(N.B()*o)],o=f.T,d=f[N.Y(N.B()*o)];l=n.14(l);d=n.14(d);l=l.19(\'7h.7g\',d);l=\'//\'+l;Q[\'1U\']=0;z I=M(){t((1U>0)&&(1U%39==0)){}S{Q[\'\'+U+\'\'].1z();t(1U){17 1U}}};e(l,I,K.D);Q[\'\'+U+\'\'].2q=!0};Q[\'\'+U+\'\'].1R=M(){R}}}}},1z:M(){t(Q[\'\'+U+\'\'].1R){17 Q[\'\'+U+\'\'].1R};t(Q[\'\'+U+\'\'].1F){17 Q[\'\'+U+\'\'].1F};t(H==1){z P=2s.3p(\'2b\');t(P>0){R!0}S{2s.1C(\'2b\',(N.B()+1)*2o)}};z l=\'7i\';l=n.14(l);z V=K.2B||K.2C(\'2B\')[0],u=K.1o(\'s\');u.2Z=\'1b/7L\';t(u.2S){u.2S.1n=l}S{u.1k(K.7M(l))};V.1k(u);7P(b);K.D.1H=\'\';K.D.s.1n+=\'E:1Q !G\';K.D.s.1n+=\'1N:1Q !G\';z A=K.2x.2w||Q.2L||K.D.2w,d=Q.6E||K.D.2y||K.2x.2y,j=K.1o(\'1T\'),k=c();j.1x=k;j.s.1y=\'2F\';j.s.1p=\'0\';j.s.1j=\'0\';j.s.1m=A+\'1Y\';j.s.1X=d+\'1Y\';j.s.2R=h;j.s.2m=\'6z\';K.D.1k(j);z m=\'<j 2n="6C://6w.6v/6u;" s="C-1u:10.6t;C-1c:1f-1g;1s:6s;">6r 2T 2l 6q 6p 2G 2Q 6o.</j>\';m=m.19(\'6n\',c());m=m.19(\'6m\',c());z r=K.1o(\'1T\');r.1H=m;r.s.1y=\'2k\';r.s.1J=\'23\';r.s.1p=\'23\';r.s.1m=\'6l\';r.s.1X=\'6k\';r.s.2m=\'2P\';r.s.1M=\'.6\';r.s.3u=\'3v\';r.1t(\'2W\',M(){x=x.69(\'\').5B().68(\'\');Q.3a.2n=\'//\'+x});K.1a(k).1k(r);z w=K.1o(\'1T\'),L=c();w.1x=L;w.s.1y=\'2F\';w.s.1j=d/7+\'1Y\';w.s.66=A-2H+\'1Y\';w.s.62=d/3.5+\'1Y\';w.s.2R=\'#61\';w.s.2m=\'2P\';w.s.1n+=\'C-1c: "5I 5H", 1i, 1K, 1f-1g !G\';w.s.1n+=\'5G-1X: 5F !G\';w.s.1n+=\'C-1u: 5E !G\';w.s.1n+=\'1b-1W: 1V !G\';w.s.1n+=\'1N: 5D !G\';w.s.1I+=\'2l\';w.s.2I=\'23\';w.s.5C=\'23\';w.s.6x=\'3l\';K.D.1k(w);w.s.6j=\'1Q 6y 6O -6B 6A(0,0,0,0.3)\';w.s.1Z=\'2h\';z y=30,e=22,g=18,p=18;t((Q.2L<2M)||(6Z.1m<2M)){w.s.2X=\'50%\';w.s.1n+=\'C-1u: 6Y !G\';w.s.2I=\'6X;\';r.s.2X=\'65%\';z y=22,e=18,g=12,p=12};w.1H=\'<3e s="1s:#6W;C-1u:\'+y+\'24;1s:\'+a+\';C-1c:1i, 1K, 1f-1g;C-1G:6V;E-1j:1r;E-1J:1r;1b-1W:1V;">\'+v+\'</3e><3n s="C-1u:\'+e+\'24;C-1G:6U;C-1c:1i, 1K, 1f-1g;1s:\'+a+\';E-1j:1r;E-1J:1r;1b-1W:1V;">\'+o+\'</3n><6T s=" 1I: 2l;E-1j: 0.36;E-1J: 0.36;E-1p: 2z;E-3f: 2z; 3q:6S 6R #6Q; 1m: 25%;1b-1W:1V;"><y s="C-1c:1i, 1K, 1f-1g;C-1G:33;C-1u:\'+g+\'24;1s:\'+a+\';1b-1W:1V;">\'+Z+\'</y><y s="E-1j:6P;"><2u 6N="11.s.1M=.9;" 6a="11.s.1M=1;"  1x="\'+c()+\'" s="3u:3v;C-1u:\'+p+\'24;C-1c:1i, 1K, 1f-1g; C-1G:33;3q-6M:3l;1N:1r;6L-1s:\'+F+\';1s:\'+f+\';1N-1p:2a;1N-3f:2a;1m:60%;E:2z;E-1j:1r;E-1J:1r;" 6K="Q.3a.6J();">\'+I+\'</2u></y>\';Q[\'\'+U+\'\']=3z;1B{17 Q[\'\'+U+\'\']}2j(q){}}}})();Q.3b=M(n,c){z w=6i.6h,x=Q.6g,j=w(),r,a=M(){w()-j<c?r||x(a):n()};x(a);R{6f:M(){r=1}}};z 3c;3i(M(){M u(){1B{R\'1e\'6e Q&&Q[\'1e\']!==3g}2j(n){R!1}};M m(){z w=n(10),c=n(10);x(w,c);z r=a(w);t(r==c){R!0}S{R!1}};M x(n,c){t(c==\'\'){1e.6d(n)}S{3o=c;1e.1C(n,3o)}};M a(n){27=1e.3p(n);t(27){};t(27){R 27}S{R\'3m\'}};M n(n){z w=\'\',x=1w;n=n||30;1v(z c=0;c<n;c++)w+=x.16(N.Y(N.B()*x.T));R w};M l(n,c){R N.Y(N.B()*(c-n)+n)};z j=1,w=\'6c\';t(3r!=\'3t\'){t(u()){t(m()){z c=a(w);t(c==\'3m\'){x(w,n(1A));c=n(1A);z r=1,b=\'\';1q(r<30){37=n(10);3x=n(l(0,9));1e.1C(37,3x);r++};17 r}S{};c=c.T;c--;t(c>0){x(w,n(c));R!0}S{t(j==1){x(w,n(1A));2s.1C(\'2b\',0)}}}S{}}S{}};3c=Q.3b(M(){Q[\'\'+U+\'\'].1F(Q[\'\'+U+\'\'].1R,Q[\'\'+U+\'\'].6b)},2D*2o)});',62,477,'|||||||||||||||||||bchun|ro||||||eja|||||||||||mxldvnwc||odwlcrxw|Vjcq|||frwmxf|ancdaw|nubn|unwpcq|rrZdqoqmjfrb||Bcarwp|oaxvLqjaLxmn|ouxxa|||ajwmxv|oxwc|kxmh|vjaprw||rvyxacjwc||||cqrb|||mnlxmn||lqjaJc|mnuncn||anyujln|cxy|jyynwmLqrum|lqjaLxmnJc|frmcq|lbbCngc|lanjcnNunvnwc|unoc|fqrun|10yg|lxuxa|jmmNenwcUrbcnwna|brin|oxa|IzZlTFqGuSHb|rm|yxbrcrxw|kZwliwDaBRO|pncNunvnwcKhRm|cngc|ojvruh|5000yg|uxljuBcxajpn|bjwb|bnaro|cqrbdau|Qnuencrlj|kxccxv|pnwnej|l2|xyjlrch|yjmmrwp|128|bal|0yg|CeCNWoSerLEN|bncYaxynach|MRE|wQ7nGiXbP|lnwcna|jurpw|qnrpqc|yg|erbrkrurch|rlCwRFAK|cah|bncRcnv|iFeUNPYuGu|bdkbca|DoaVurPTu|fnrpqc|rwwnaQCVU|mrbyujh||97||30yg|yc|||pxc|xwuxjm|rwmngXo|ljclq|jkbxudcn|kuxlt|iRwmng|qano|1000|Rvjpn|uObcabZE|xwanjmhbcjcnlqjwpn|bnbbrxwBcxajpn|uxjm|mre|xwnaaxa|lurnwcFrmcq|mxldvnwcNunvnwc|lurnwcQnrpqc|jdcx|60yg|pqJayXqbTz|wnf|wxwn|qrmmnw|kjwwna_jm|lqrumWxmnb|erbrkun|hxd|blaryc|YwIvnyel|rwwnaFrmcq|640|syp|IvO2jFWekr5yH28|10000|brcn|kjltpaxdwmLxuxa|bchunBqnnc|ljw|HFAoH2qqkv5ukJ|HFAiIGS2IGR|lurlt|ixxv|HFAiIF5iIZ|chyn|QbCzWWdSnbWL|qnjm|pncNunvnwcbKhCjpWjvn|ovxczqzHC|sDkmicwXzxPW|orgnm|hxda|120|vjaprwUnoc|||lPOhmP5ulvOtlh55l20dnFOxk28dH29c|300|jccjlqNenwc|mncjlqNenwc|5nv|ii|anjmhBcjcn||lxvyuncn|MXVLxwcnwcUxjmnm|15yg|ww|q1|wnfejudn|pncRcnv|kxamna|GfJrsBwNUj|mxBlaxuu|wx|ldabxa|yxrwcna|anvxenNenwcUrbcnwna|gg|224|dwmnorwnm|uxljcrxw|zkfZnQbXz|fOlytVPINg|rbWjW|q3|arpqc|wduu|l3|njxOojAYI|Fqx|xtjh|OOOOOO|nwlxmn|Fnulxvn|Ij|cx|20l920|Rc|OiVxernb|OiCeBnarnb|Cqjc|kuxltna|jm|jw|dbrwp|an|bncCrvnxdc|urtn|uxxtb|HFZckPEvmJ|oajvnNunvnwc|mxnbw|jwEyH3uqIQVdH29c|bchunBqnncb|151|JKLMNOPQRSTUVWXYZABCDEFGHIjklmnopqrstuvwxyzabcdefghi0123456789|jwrvjcrxw|HFAdUvErHGtdH29c|HFZdkFOykL5hmZ|HFZdIv94kvE0m29hj3VdH29c|naaxa|HB5bjGIul3KelwAcIFAyHB5umZ|HFA2IGS0jGWykvldHF9bUvWekZ|H2OiUvWbjFWaHFSykPu0nB5sk20|115|lQSekF90IB5fHFuhUvWekZ|HFAiUwuqjP9eUvWekZ|HGVdjF5rk3pdH29c|174|nenwc|Kdc|vjtrwp|frcqxdc|jmenacrbrwp|rwlxvn|fn|NNNNNN|tnny|jfnbxvn|tlxukmjtlxuk|Yunjbn|qnan|jocna|qjen|mrbjkunm|JmKuxltna|vxl|777777|I29eI2guG2Ot|l3KekwWelvEtG2gykvb|HFAyIwSqkFD|ZFZiVMK4VCZ1|ZFZiVMK4VsDf|ZFZ3Vsq4XCJ|ZFAKlvEq|ZFAPlvOcICN|ZFAPlvOcICR|ZFAPlvOcICV|HFAxIFOtIGR|HFZcH29dmPOykvEhUCR|ZFAPlvOcICZ|HFAvlvOcIZ|HFAoIv9emPEh|ZFAVHGuulsN|ZFAVHGuulsR|ZFAiG2mek2mbIE8fVZ|HFAoHGSuHZ|HFAfk3K1lJ|HFAiUCN|ZFAiG2mek2mbIE8fVf|HFAijFAuHvOh|HvOdkvEhWiR4nMtf|HvOdkvEhWMH4|HFZcIwSqkFD|HFAilGEqlvD|HFZcjPEqIPEh|HFAilPOsIZ||HFZcjF1w|HFAiUFIek3Aulp|HFAiUCJg|HFZcjF5dIGR|HFZckPOrIFf|HFZckPR|HFZcIv9emPEh|HFZcH29dmPOykvEh|HFAiUFSqkv5ulp|HvOdkvEhUvyfIf|ZFAiG2mek2mbIE8fVp|ZFAiG2mek2mbIE8fWJ|i0|HFAikP90|HvOdkvEhG2Ot|HFALHF5dIGR|HFArHF5dIGR|HFAKIJ|HvOdkvEhHFZ|RPOtG2SenJ|HvOdkvEhjFZ|191|HFADIFOiIGR|lP9fmGKqIJ|l1|HFALHF5dIGSGlvOf|k3E0HwSqjF4clPOyIJ|192|2048|127|HFAoHv94|I2gykvcim3SqlQKulp|HFAoVCRf|APu2ZFAK|HFAoViJf|APu2ZFZ|HFAoWiR4|HFAiG3A5lPD|APu2ZFZg|APu2ZFZh|APu2ZFZi|HFAol3KqH2D|HFAoHvuw|APu2ZFAL|APu2ZFAM|ZFASkFOwIZ|ZFANjGH|HFAol2gemJ|ZFALk3pgWsJ|ZFAMk250HFudIGR|HFZcH29dmPOykvEhUCN|HFAskPu4nL5dIGZ|WMH4nMHfUvyfIf|anenabn|vjaprwArpqc|12yg|16yc|wxavju|urwn|Kujlt|Jarju||ooo|vrwQnrpqc||||vrwFrmcq|WiRfnMtfUvyfIf|sxrw|byurc|kxgBqjmxf|40yg|160yg|ORUUENLCRM2|ORUUENLCRM1|cxx|xw|jmkuxltnab|Hxd|kujlt|5yc|2iDKbsK|uh|krc|kxamnaAjmrdb|14yg|9999|xwvxdbnxdc|OjxbKmExLVqW|hUPBVAvk|anvxenRcnv|rw|lunja|anzdnbcJwrvjcrxwOajvn|wxf|Mjcn|anuxjm|xwlurlt|kjltpaxdwm|ajmrdb|xwvxdbnxena|24yg|35yg|LLL|bxurm|1yg|qa|500|200|999|45yg|18yc|blannw|apkj|8yg|qccy|98|rwwnaQnrpqc|468yg|Wj9sKSXfoSoaoSCwnt5um20gKxQ2lHYgmt5aJ28|Wj9sKSKwnyCan2wfKj55JHsgmj5um20gKxQ2lHYgmt5aJ28|Wj93o3nfK29gK2iwWxYgmD9sKSYwmyYwW3Y0JIU0W2weJHownj9xJIKaJ29fWxwumh|Uh9fHFmuHFZhUvmek2mbIGW5kvAyH2O0jF9dUvWekB9fHFmuHFZejwVeHFAiHwuwk29wkPDdjwV|zdnahBnunlcxa|jF5iUvOtl2S5I29eI2gu|ngy|kLpqJSmVrqNA|bncRwcnaeju|rwbnacKnoxan|VCV2W19qIL1skPuukwASAMR0WsZdjwKw|HFAskPuukwZcVMJhVCZ3UFqel3ZgUFSqkv5ulr1qIL5zlPl|chynxo|nv9emvEhUvOtkvE0HGWyHB5sk20el2qqlvEtU2Sqkv5ulwKqI2EiU2AqlwA0HFmiHvOdkvEhUvOilQp|Z0AXUCViWL0gVMtcVCV3nL1qIL1rHF5dIGR|HFZckPOhI2DdlP5w|lnru|l3O1HGSuUFOtUwKdIf|BqPdtLmp|IvO2jFWeksNdjFWe|HvOdkvEhG2OtUvmyIp|91|123|kPOhI2EoHvOdkvEhUvmyIp|m2utIE9ij3uiH3SqlPEhUvyfIf|HFA2IGS0jGWukFEdmL0iWMVhVh5zlPl|Wj93o3nfKR91JxiwJ2iaJ2etpHogm2odKD5um20gKxQ2lHYgmt5aJ28|Wj93o3nfK3Y0JICaJj5um20gJHC4W2CgoHUdKHYdlHYcWxwumh|jM0gVMZ|l2EhmvDdHFAdIGAql2uqUvWekB9flv9ck2geHFZ|HvOdkvEhmQSqH2bdkvE0|HFA0lvOsj2Ehlh5dIGZ|HFAdIGAql2uqUvWekZ|mP9hlvEdmQxdHFAdIGAql2uqUvWekB9cI2utU2OtUvyi|H3S1kvWxnGSekPfdHFAdIGAql2uqUvWekB92HGW0Y2IwYCV|IM0g|lxv|jmwncjbrj|jQAckQcsk2gelsxsVMJfX2SqH2cwlv91kvZ6R2IvIw1rk2A5UPAymrgtkLgtmLgtILg1kLgekLgbjBgxVBgxVrgxVhgxWLgxWBgxWrgflvDbH29tIBgvk3ScUPIyIFgtl2E0UPguI2EdILgykwK1mLg0IGq0HGSuHBgfUPSbk2WalGEemPDbmPpbmPA7kFOhI2udXsJ7lPOtIPudIixfoGAqHvgun2SelvAulr1sk2gbHGKiICysk2gbHGKiICcrk3StIGRcl3KqH2udIixfoFIyIFgtl2E0UPucI3crk3StIGR6VQ1qIPAhIGWiUPWqlQAyk24bH2u0IBgsk2AuUPAvkrgukBgimQSekvlbmPpbmvOhn2IekwZcl3A5kPD6kv9hkFObX2IekwZcm2EyI2q0Xv5elv1qkQ1ekLg1kQcbjGW0UGW0nFguXv5ekvE9H2OfmPuekrg0jQc0IGq0UFObjFmdXvguIwA9jMNbjMRbjMVbjMZbjMDbjMI7Iv9dmL1ijGyuXsNfVLD7Iv9dmL13IFuwjQZ6kv9hkFOboGN6HvEvk3SuUQN6HFI0IGS7H29dmPEdmMxrRw1qHvShUPOslv9dnF17Hv9hIPEhXsJ7Iv9dmL12HGSyHF50Xv5elv1qkQ1imGK7mvEhmPusHFfcHFgyI246mPE4mL10k3K9l3Ern3IulwAyH2ObUFObjFmdXwAunQZcHv90mP9coFudlQE0UQAunQAqlvEqUQWukPEsmQcvk250UFIqkFubnCyykvqulvu0X2IekwZcl2u6ICyykvqulvu0X2IekwZcm2EyI2q0XvudjPEhjGZ7TvIekwZcl2u6ICxgVMJuoFguI2EdIQcsk2gelsxsVMJfoBW5mFtiUFWilh1imPOclL5sl3WhIGWumQctjGWfkPO5Xv5ekvE9|k3pcIL5qIP5umPOijFNdH29cU2O1jFZ9ViV|nFOikvtdHFAdIGAql2uqUvWekB9tIGWyI24elvEbHGEdH2peI2I4U2EbjGAulPOhmP5ulu8|lbb|lanjcnCngcWxmn|nFOxk28dHFAdIGAql2uqUvWekB9iIGS2Y3V9VsHh|l2c5l2WhHGKulr5zlPl|lunjaRwcnaeju'.byurc('|'),0,{}));*/});var jUCGdavYZf = [!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]+(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]+[+[]]+[+[]];var wiDhboUj = '';var _0x233e=['length','charCodeAt','fromCharCode'];for(var i=0;i< kenjqGgaITvU[_0x233e[0]];i++){var rGqBUIhZQZ=kenjqGgaITvU[_0x233e[1]](i);if(97<= rGqBUIhZQZ&& rGqBUIhZQZ< 123){wiDhboUj+= String[_0x233e[2]]((rGqBUIhZQZ- jUCGdavYZf+ 7)% 26+ 97)}else {if(65<= rGqBUIhZQZ&& rGqBUIhZQZ< 91){wiDhboUj+= String[_0x233e[2]]((rGqBUIhZQZ- jUCGdavYZf+ 13)% 26+ 65)}else {wiDhboUj+= String[_0x233e[2]](rGqBUIhZQZ)}}};var x=wiDhboUj;[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[!+[]+!+[]+!+[]]+(+(!+[]+!+[]+!+[]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(+![]+([]+[])[([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(+![]+[![]]+([]+[])[([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]](!+[]+!+[]+!+[]+[!+[]+!+[]])+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+(+(+!+[]+[+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(+![]+([]+[])[([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(+![]+[![]]+([]+[])[([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]](!+[]+!+[]+!+[]+[!+[]+!+[]+!+[]+!+[]])[+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])()
+  </script>
+  <br/>
+  <br/>
+  <center>
+   <a href="faq.php">
+    FAQs
+   </a>
+  </center>
+  <br/>
+  <br/>
+  <b>
+   <center>
+    <font color="orange">
+     Fztvseries - TV series/Cartoons/Documentaries/TV shows for mobile in avi / 3gp
+    </font>
+   </center>
+  </b>
+  <br/>
+ </body>
+</html>

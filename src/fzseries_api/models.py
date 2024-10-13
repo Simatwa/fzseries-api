@@ -38,7 +38,10 @@ class SearchResults(BaseModel):
     last_page: t.Union[HttpUrl, None] = None
 
     def __str__(self):
-        return f"<SearchResults series={' | '.join([str(series) for series in self.series])} total={len(self.series)}>"
+        return (
+            f"<SearchResults series={' | '.join([str(series) for series in self.series])}"
+            f" total={len(self.series)}>"
+        )
 
 
 class EpisodeFile(BaseModel):
