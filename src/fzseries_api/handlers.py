@@ -253,3 +253,16 @@ def download_links_page_handler(contents: str) -> models.DonwloadEpisode:
     return models.DonwloadEpisode(
         links=links, filename=filename, size=size, downloads=downloads
     )
+
+
+def final_download_link_handler(contents: str) -> str:
+    """Extract link pointing to downloadable episode file
+
+    Args:
+        contents (str): Html content of page containing the link.
+
+    Returns:
+        str: link
+    """
+    link = re.findall(r".*?location.href='(.*)'.*?", contents)
+    return link[0]

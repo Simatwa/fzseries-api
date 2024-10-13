@@ -63,6 +63,21 @@ class TestSeriesHandlers(unittest.TestCase):
             models.DonwloadEpisode,
         )
 
+    def test_final_download_link_handler(self):
+        target_series = self.search_series_found.series[0]
+        tvseries_page_html_contents = hunters.Metadata.tvseries_page(target_series.url)
+        seasons = handlers.tvseries_page_handler(tvseries_page_html_contents).seasons[0]
+        season_page_html_contents = hunters.Metadata.season_episodes(seasons.url)
+        episodes = handlers.season_episodes_handler(season_page_html_contents)
+        episode_file = episodes.episodes[0].files[0]
+        download_links_page = hunters.Metadata.episode_download_links(episode_file.url)
+        download_links = handlers.download_links_page_handler(download_links_page)
+        final_download_link_page = hunters.Metadata.episode_final_download_link(
+            download_links.links[0]
+        )
+        final_link = handlers.final_download_link_handler(final_download_link_page)
+        self.assertIsInstance(final_link, str)
+
 
 if __name__ == "__main__":
     unittest.main()

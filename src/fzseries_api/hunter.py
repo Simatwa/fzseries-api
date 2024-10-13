@@ -65,8 +65,6 @@ class Index:
         Returns:
             str: Html contents of the results page
         """
-        # https://fztvseries.live/search.php?search=love&beginsearch=Search&vsearch=&by=series
-        # https://fztvseries.live/search.php?search=love&beginsearch=Search&vsearch=&by=episodes
         utils.assert_membership(by, self.search_by_options)
         return Metadata.get_resource(
             "https://fztvseries.live/search.php",
@@ -165,3 +163,21 @@ class Metadata:
                 "to-download-links",
             )
         ).text
+
+    @classmethod
+    def episode_final_download_link(cls, url: str) -> str:
+        """Get page containing final download link
+
+        Args:
+            url (str): Url to the page.
+
+        Returns:
+            str : Html contents of the page.
+        """
+        resp = cls.get_resource(
+            utils.validate_url(r".*/filelink.php\?sn=.*", url, "to-episodes")
+        ).text
+
+        with open("last.html", "w") as fh:
+            fh.write(utils.souper(resp).prettify())
+        return resp
