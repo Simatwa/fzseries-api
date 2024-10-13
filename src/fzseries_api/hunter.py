@@ -175,6 +175,6 @@ class Metadata:
             str : Html contents of the page.
         """
         resp = cls.get_resource(
-            utils.validate_url(r".*/filelink.php\?sn=.*", url, "to-episodes")
+            utils.validate_url(r".*/filelink.php\?sn=.*", url, "to-final-download-link")
         ).text
         return resp
