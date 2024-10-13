@@ -50,6 +50,19 @@ class TestSeriesHandlers(unittest.TestCase):
             models.EpisodeSearchResults,
         )
 
+    def test_download_links_handler(self):
+        target_series = self.search_series_found.series[0]
+        tvseries_page_html_contents = hunters.Metadata.tvseries_page(target_series.url)
+        seasons = handlers.tvseries_page_handler(tvseries_page_html_contents).seasons[0]
+        season_page_html_contents = hunters.Metadata.season_episodes(seasons.url)
+        episodes = handlers.season_episodes_handler(season_page_html_contents)
+        episode_file = episodes.episodes[0].files[0]
+        download_links_page = hunters.Metadata.episode_download_links(episode_file.url)
+        self.assertIsInstance(
+            handlers.download_links_page_handler(download_links_page),
+            models.DonwloadEpisode,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

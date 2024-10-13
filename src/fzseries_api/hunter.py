@@ -141,3 +141,27 @@ class Metadata:
         return cls.get_resource(
             utils.validate_url(r".*/files-.*", url, "to-episodes")
         ).text
+
+    @classmethod
+    def episode_download_links(cls, url: str) -> str:
+        """Get page containing download links
+
+        Args:
+            url (str): Url to the page
+
+        Returns:
+            str: Page contents
+        """
+        to_download_page = cls.get_resource(
+            utils.validate_url(r".*/episode.php\?fileid=.*", url, "to-download-page")
+        ).text
+        to_download_page_links = (
+            utils.souper(to_download_page).find("a", {"id": "dlink2"}).get("href")
+        )
+        return cls.get_resource(
+            utils.validate_url(
+                r".*/downloadmp4.php\?fileid=.*",
+                utils.get_absolute_url(to_download_page_links),
+                "to-download-links",
+            )
+        ).text

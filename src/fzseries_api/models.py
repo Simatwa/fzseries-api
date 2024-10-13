@@ -149,3 +149,20 @@ class TVSeries(BaseModel):
 
     def __str__(self):
         return f'<TVSeries title="{self.title}", year={self.year}, imdb_rating={self.imdb_rating}>'
+
+
+class DonwloadEpisode(BaseModel):
+    """Episodes download links
+    `links` : Link to download episode
+    `filename` : Episodes filename
+    `size` : Episode file size
+    `downloads` : Total downloads
+    """
+
+    links: list[HttpUrl]
+    filename: str
+    size: str
+    downloads: int
+
+    def __str__(self):
+        return f'<DownloadEpisode filename="{self.filename}", size="{self.size}">'

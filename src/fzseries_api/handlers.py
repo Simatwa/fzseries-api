@@ -231,3 +231,25 @@ def season_episodes_handler(contents: str) -> models.EpisodeSearchResults:
         models.EpisodeSearchResults
     """
     return episode_search_results_handler(contents)
+
+
+def download_links_page_handler(contents: str) -> models.DonwloadEpisode:
+    """Extract episode download-links and other metadata from html contents
+      and make model
+
+    Args:
+        contents (str): Html contents of page containing the links
+
+    Returns:
+        models.DonwloadEpisode
+    """
+    soup = utils.souper(contents).find("div", {"class": "filedownload"})
+    filename = soup.find_all("textcolor1")[0].text.strip()
+    downloads = soup.find_all("textcolor1")[-1].text.strip()
+    size = soup.find("textcolor2").text.strip()
+    links: list[str] = []
+    for link in soup.find_all("div", {"class": "downloadlinks2"}):
+        links.append(utils.get_absolute_url(link.find("a").get("href")))
+    return models.DonwloadEpisode(
+        links=links, filename=filename, size=size, downloads=downloads
+    )
