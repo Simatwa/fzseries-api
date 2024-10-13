@@ -25,5 +25,31 @@ class TestSearchHandlers(unittest.TestCase):
         )
 
 
+class TestSeriesHandlers(unittest.TestCase):
+
+    def setUp(self):
+        self.search_html_contents = hunters.Index().search("love")
+        self.search_series_found = handlers.search_results_handler(
+            self.search_html_contents
+        )
+
+    def test_tvseries_handler(self):
+        target_series = self.search_series_found.series[0]
+        tvseries_page_html_contents = hunters.Metadata.tvseries_page(target_series.url)
+        self.assertIsInstance(
+            handlers.tvseries_page_handler(tvseries_page_html_contents), models.TVSeries
+        )
+
+    def test_episodes_handler(self):
+        target_series = self.search_series_found.series[0]
+        tvseries_page_html_contents = hunters.Metadata.tvseries_page(target_series.url)
+        seasons = handlers.tvseries_page_handler(tvseries_page_html_contents).seasons[0]
+        season_page_html_contents = hunters.Metadata.season_episodes(seasons.url)
+        self.assertIsInstance(
+            handlers.season_episodes_handler(season_page_html_contents),
+            models.EpisodeSearchResults,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

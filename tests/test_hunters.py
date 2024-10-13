@@ -1,5 +1,6 @@
 import unittest
 import fzseries_api.hunter as hunters
+import fzseries_api.handlers as handlers
 
 
 class TestSearch(unittest.TestCase):
@@ -13,6 +14,26 @@ class TestSearch(unittest.TestCase):
 
     def test_hunt_by_episode(self):
         self.assertIsInstance(self.index.search(self.query, "episodes"), str)
+
+
+class TestSeriesNavigation(unittest.TestCase):
+    def setUp(self):
+        self.search_html_contents = hunters.Index().search("love")
+        self.search_series_found = handlers.search_results_handler(
+            self.search_html_contents
+        )
+
+    def test_tvseries_page(self):
+        target_series = self.search_series_found.series[0]
+        tvseries_page_html_contents = hunters.Metadata.tvseries_page(target_series.url)
+        self.assertIsInstance(tvseries_page_html_contents, str)
+
+    def test_episodes_page(self):
+        target_series = self.search_series_found.series[0]
+        tvseries_page_html_contents = hunters.Metadata.tvseries_page(target_series.url)
+        seasons = handlers.tvseries_page_handler(tvseries_page_html_contents).seasons[0]
+        season_page_html_contents = hunters.Metadata.season_episodes(seasons.url)
+        self.assertIsInstance(season_page_html_contents, str)
 
 
 if __name__ == "__main__":

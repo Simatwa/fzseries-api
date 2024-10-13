@@ -4,7 +4,7 @@ with fzmovies.net in fetching the required resources
 that revolves around:
 - Load index page
 - Perform search
-- Select the target movie
+- Select the target series
 - Proceed to download page
 - Select link
 """
@@ -113,3 +113,31 @@ class Metadata:
                 )
 
         return resp
+
+    @classmethod
+    def tvseries_page(cls, url: str) -> str:
+        """Get page containing series season
+
+        Args:
+            url (str): Url to the page
+
+        Returns:
+            str: Page contents
+        """
+        return cls.get_resource(
+            utils.validate_url(r".*/subfolder-.*", url, "to-seasons")
+        ).text
+
+    @classmethod
+    def season_episodes(cls, url: str) -> str:
+        """Get page containing praticular season's episode
+
+        Args:
+            url (str): Url to the page
+
+        Returns:
+            str: Page contents
+        """
+        return cls.get_resource(
+            utils.validate_url(r".*/files-.*", url, "to-episodes")
+        ).text

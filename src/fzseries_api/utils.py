@@ -7,6 +7,7 @@ as well as storing common variables across the package
 from bs4 import BeautifulSoup as bts
 from os import path
 import typing as t
+import re
 
 available_site_urls: tuple[str] = (
     "https://tvseries.in",
@@ -40,3 +41,25 @@ def assert_membership(value: t.Any, elements: t.Iterable, identity="Value"):
         identity (str, optional):. Defaults to "Value".
     """
     assert value in elements, f"{identity} '{value}' is not one of {elements}"
+
+
+def validate_url(pattern: str, url: str, identity: str = "resource") -> str:
+    """Checks pattern presence in a url
+
+    Args:
+        pattern (str): Regex pattern
+        url (str):
+        identity (str): Defaults to "resource"
+
+    Raises:
+        ValueError: On mistmatch
+
+    Returns:
+        str: url
+    """
+    match = re.match(pattern, str(url))
+
+    if match:
+        return match.group()
+    else:
+        raise ValueError(f"Invalid {identity} url passed - '{url}'")

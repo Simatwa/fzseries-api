@@ -7,6 +7,7 @@ import re
 import fzseries_api.utils as utils
 import fzseries_api.models as models
 import fzseries_api.exceptions as exceptions
+from datetime import datetime
 
 
 def search_results_handler(contents: str) -> models.SearchResults:
@@ -164,3 +165,69 @@ def episode_search_results_handler(contents: str) -> models.EpisodeSearchResults
 
     else:
         raise exceptions.ZeroSearchResults("Search query returned zero results")
+
+
+def tvseries_page_handler(contents: str) -> models.TVSeries:
+    """Extract tvseries metadata from page
+
+    Args:
+        contents (str): Html contents of page containing series metadata
+
+    Returns:
+        models.TVSeries
+
+    title : str
+    genres : str
+    year : str
+    about : str
+    imdb_rating : float
+    last_updated : datetime
+    seasons : list[TVSeriesSeason]
+    """
+    soup = utils.souper(contents)
+    series_info = soup.find_all("div", {"class": "mainbox3"})[-1]
+    span = series_info.find("span")
+    url = span.find("a").get("href")
+    title = span.find("a").text.strip()
+    metadata = span.find_all("small")[-1]
+    stripped_tags = re.sub(r"<\W?\w+\W?>", "\n", str(metadata))
+    about = stripped_tags.strip().split("\n")[0]
+    year, genres, imdb_rating, last_updated = re.findall(
+        r".*:\s\(?(.*)\)?", stripped_tags
+    )
+    season_items: list[dict[str, str | int]] = []
+    for number, season in enumerate(
+        soup.find("div", {"itemprop": "containsSeason"}).find_all(
+            "div", {"class": "mainbox2"}
+        ),
+        start=1,
+    ):
+        link = season.find("a")
+        season_items.append(
+            dict(
+                url=utils.get_absolute_url(link.get("href")),
+                identity=link.text.strip(),
+                number=number,
+            )
+        )
+    return models.TVSeries(
+        title=title,
+        genres=genres,
+        year=year.replace(")", ""),
+        about=about,
+        imdb_rating=imdb_rating,
+        last_updated=datetime.strptime(last_updated, "%d %b, %Y"),
+        seasons=season_items,
+    )
+
+
+def season_episodes_handler(contents: str) -> models.EpisodeSearchResults:
+    """Extract episodes for a particular season and make models
+
+    Args:
+        contents (str): Html contents of the episode's page
+
+    Returns:
+        models.EpisodeSearchResults
+    """
+    return episode_search_results_handler(contents)
