@@ -8,8 +8,10 @@ that revolves around:
 - Proceed to download page
 - Select link
 """
+
 import requests
 import re
+import typing as t
 import fzseries_api.utils as utils
 import fzseries_api.exceptions as exceptions
 from fzseries_api import logger
@@ -28,15 +30,19 @@ session.headers.update(headers)
 
 request_timeout = 20
 
+
 class Index:
     """Accesses site's homepage"""
 
     session_is_initialized = False
+    search_by_options = ("series", "episodes")
 
     def __init__(self):
         """Initializes `Index`"""
         if not self.session_is_initialized:
-            load_index_resp = session.get(utils.default_site_url, timeout=request_timeout)
+            load_index_resp = session.get(
+                utils.default_site_url, timeout=request_timeout
+            )
             if not load_index_resp.ok:
                 logger.debug(
                     f"Headers - {load_index_resp.headers} \nResponse - {load_index_resp.text}"
@@ -48,6 +54,30 @@ class Index:
 
     def __str__(self):
         return f"<fzseries_api.hunter.Index_{self.index_resp.reason}>"
+
+    def search(self, query: str, by: t.Literal["series", "episodes"] = "series") -> str:
+        """Perform initial series|episode search
+
+        Args:
+            query (str): Series|Episode title.
+            by (t.Literal['series', "episodes"], optional): Query category. Defaults to 'series'.
+
+        Returns:
+            str: Html contents of the results page
+        """
+        # https://fztvseries.live/search.php?search=love&beginsearch=Search&vsearch=&by=series
+        # https://fztvseries.live/search.php?search=love&beginsearch=Search&vsearch=&by=episodes
+        utils.assert_membership(by, self.search_by_options)
+        return Metadata.get_resource(
+            "https://fztvseries.live/search.php",
+            params=dict(
+                search=query,
+                beginsearch="",
+                insearch="Search",
+                vsearch="",
+                by=by,
+            ),
+        ).text
 
 
 class Metadata:
@@ -61,7 +91,7 @@ class Metadata:
     session_expired_pattern = r".*Your download keys have expired.*"
 
     @classmethod
-    def get_resource(cls, url: str, timeout: int = 20, *args, **kwargs):
+    def get_resource(cls, url: str, timeout: int = request_timeout, *args, **kwargs):
         """Fetch online resource
 
         Args:

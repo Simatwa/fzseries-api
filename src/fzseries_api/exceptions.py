@@ -2,6 +2,7 @@
 Contains exception classes that are used
 across the fzsereries_api
 """
+
 """
 This module contains exception classes 
 that are used across fzmovies_api
