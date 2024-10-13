@@ -21,9 +21,6 @@ def search_results_handler(contents: str) -> models.SearchResults:
     """
     series_found = utils.souper(contents).find_all("div", {"class": "mainbox3"})[2:]
 
-    with open("test.html", "w") as fh:
-        fh.write(utils.souper(contents).prettify())
-
     if series_found:
         series_items: list[dict[str, str]] = []
         for series in series_found:

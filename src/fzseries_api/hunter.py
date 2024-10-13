@@ -177,7 +177,4 @@ class Metadata:
         resp = cls.get_resource(
             utils.validate_url(r".*/filelink.php\?sn=.*", url, "to-episodes")
         ).text
-
-        with open("last.html", "w") as fh:
-            fh.write(utils.souper(resp).prettify())
         return resp

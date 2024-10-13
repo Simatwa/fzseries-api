@@ -12,7 +12,7 @@ The models are not limited to:
 """
 
 import typing as t
-from pydantic import BaseModel, HttpUrl, field_validator
+from pydantic import BaseModel, HttpUrl
 from datetime import datetime
 
 
