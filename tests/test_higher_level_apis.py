@@ -4,6 +4,7 @@ from pathlib import Path
 from fzseries_api.main import Search, TVSeriesMetadata, EpisodeMetadata, Download
 import fzseries_api.models as models
 from fzseries_api.filters import AlphabeticalOrderFilter
+from typing import Generator
 
 query = "love"
 
@@ -18,6 +19,17 @@ class TestSearch(unittest.TestCase):
 
     def test_results(self):
         self.assertIsInstance(self.search.results, models.SearchResults)
+
+    def test_get_all_results(self):
+        results = self.search.get_all_results(limit=40)
+        self.assertIsInstance(results, models.SearchResults)
+        self.assertEqual(len(results.series), 40)
+
+    def test_get_all_results_stream(self):
+        stream_get_results = self.search.get_all_results(stream=True, limit=40)
+        self.assertIsInstance(stream_get_results, Generator)
+        for results in stream_get_results:
+            self.assertIsInstance(results, models.SearchResults)
 
 
 class TestSearchByFilter(unittest.TestCase):
