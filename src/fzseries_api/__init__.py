@@ -1,6 +1,6 @@
 """
 This package does the Lord's work
-of automating the process of downloading a series
+of automating the process of downloading a TV-series
 from fztvseries.live. 
 
 Right from performing `search` query down to downloading
@@ -19,3 +19,7 @@ __author__ = "Smartwa"
 __repo__ = "https://github.com/Simatwa/fzseries-api"
 
 logger = logging.getLogger(__name__)
+
+from fzseries_api.main import Search, TVSeriesMetadata, EpisodeMetadata, Download
+
+__all__ = ["Search", "TVSeriesMetadata", "EpisodeMetadata", "Download"]

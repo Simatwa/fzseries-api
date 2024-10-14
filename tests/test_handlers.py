@@ -60,7 +60,7 @@ class TestSeriesHandlers(unittest.TestCase):
         download_links_page = hunters.Metadata.episode_download_links(episode_file.url)
         self.assertIsInstance(
             handlers.download_links_page_handler(download_links_page),
-            models.DonwloadEpisode,
+            models.DownloadEpisode,
         )
 
     def test_final_download_link_handler(self):

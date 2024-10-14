@@ -151,7 +151,7 @@ class TVSeries(BaseModel):
         return f'<TVSeries title="{self.title}", year={self.year}, imdb_rating={self.imdb_rating}>'
 
 
-class DonwloadEpisode(BaseModel):
+class DownloadEpisode(BaseModel):
     """Episodes download links
     `links` : Link to download episode
     `filename` : Episodes filename

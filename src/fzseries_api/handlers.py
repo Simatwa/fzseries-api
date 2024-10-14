@@ -172,14 +172,6 @@ def tvseries_page_handler(contents: str) -> models.TVSeries:
 
     Returns:
         models.TVSeries
-
-    title : str
-    genres : str
-    year : str
-    about : str
-    imdb_rating : float
-    last_updated : datetime
-    seasons : list[TVSeriesSeason]
     """
     soup = utils.souper(contents)
     series_info = soup.find_all("div", {"class": "mainbox3"})[-1]
@@ -230,7 +222,7 @@ def season_episodes_handler(contents: str) -> models.EpisodeSearchResults:
     return episode_search_results_handler(contents)
 
 
-def download_links_page_handler(contents: str) -> models.DonwloadEpisode:
+def download_links_page_handler(contents: str) -> models.DownloadEpisode:
     """Extract episode download-links and other metadata from html contents
       and make model
 
@@ -238,7 +230,7 @@ def download_links_page_handler(contents: str) -> models.DonwloadEpisode:
         contents (str): Html contents of page containing the links
 
     Returns:
-        models.DonwloadEpisode
+        models.DownloadEpisode
     """
     soup = utils.souper(contents).find("div", {"class": "filedownload"})
     filename = soup.find_all("textcolor1")[0].text.strip()
@@ -247,7 +239,7 @@ def download_links_page_handler(contents: str) -> models.DonwloadEpisode:
     links: list[str] = []
     for link in soup.find_all("div", {"class": "downloadlinks2"}):
         links.append(utils.get_absolute_url(link.find("a").get("href")))
-    return models.DonwloadEpisode(
+    return models.DownloadEpisode(
         links=links, filename=filename, size=size, downloads=downloads
     )
 
