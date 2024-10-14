@@ -18,6 +18,7 @@ from os import path, getcwd
 from pathlib import Path
 import typing as t
 from fzseries_api import logger
+from fzseries_api.filters import fzseriesFilterType, Filter, SearchNavigatorFilter
 import fzseries_api.hunter as hunter
 import fzseries_api.models as models
 import fzseries_api.handlers as handlers
@@ -27,25 +28,38 @@ import fzseries_api.utils as utils
 class Search(hunter.Index):
     """Perform search query and generate models"""
 
-    def __init__(self, query: str, by: t.Literal["series", "episodes"] = "series"):
+    def __init__(
+        self,
+        query: str | fzseriesFilterType,
+        by: t.Literal["series", "episodes"] = "series",
+    ):
         """Initializes `Search`
 
         Args:
-            query (str): Series name or episode
+            query (str|fzseriesFilterType): Series name/episode or filter.
             by (t.Literal['series', 'episodes'], optional): Query category. Defaults to 'series'.
         """
         self.query = query
-        utils.assert_membership(by, self.search_by_options)
-        self.by = by
+        if isinstance(self.query, Filter):
+            self._query_is_filter = True
+        else:
+            self._query_is_filter = False
+            utils.assert_membership(by, self.search_by_options)
+            self.by = by
+
         super().__init__()
 
     def __str__(self):
-        return f'<fzseries_api.main.Search query="{self.query}">'
+        return f'<fzseries_api.main.Search query="{str(self.query)}">'
 
     @property
     def html_contents(self) -> str:
         """Html contents of the search results page"""
-        return self.search(query=self.query, by=self.by)
+        return (
+            self.search(query=self.query, by=self.by)
+            if self._query_is_filter
+            else self.query.get_contents()
+        )
 
     @property
     def results(self) -> t.Union[models.SearchResults, models.EpisodeSearchResults]:
@@ -54,10 +68,116 @@ class Search(hunter.Index):
         Returns:
             t.Union[models.SearchResults, models.EpisodeSearchResults]
         """
-        if self.by == "series":
-            return handlers.search_results_handler(self.html_contents)
+        if self._query_is_filter:
+            resp = self.query.get_results()
         else:
-            return handlers.episode_search_results_handler(self.html_contents)
+            if self.by == "series":
+                resp = handlers.search_results_handler(self.html_contents)
+            else:
+                resp = handlers.episode_search_results_handler(self.html_contents)
+        self._latest_results = resp
+        return resp
+
+    @property
+    def all_results(self) -> models.SearchResults:
+        """All search results"""
+        return self.get_all_results()
+
+    def get_all_results(
+        self, stream: bool = False, limit: int = 1000000
+    ) -> models.SearchResults | t.Generator[models.SearchResults, None, None]:
+        """Fetch all search results
+
+        Args:
+            stream (bool, optional): Yield results. Defaults to False.
+            limit (int, optional): Total series not to exceed - `multiple of 20`. Defaults to 1000000.
+
+        Returns:
+            models.SearchResults | t.Generator[models.SearchResults, None, None]
+        """
+
+        def for_stream(self, limit):
+            total_series_search = 0
+            while True:
+                r: models.SearchResults | models.EpisodeSearchResults = self.results
+                total_series_search += (
+                    len(r.series) if hasattr(r, "series") else len(r.episodes)
+                )
+                yield r
+                if r.next_page:
+                    self = self.next()
+                else:
+                    break
+
+                if total_series_search >= limit:
+                    break
+
+        def for_non_stream(self, limit):
+            cache = None
+            for results in for_stream(self, limit):
+                if cache is None:
+                    cache = results
+                else:
+                    cache = cache + results
+            return cache
+
+        return for_stream(self, limit) if stream else for_non_stream(self, limit)
+
+    def first(self) -> "Search":
+        """Navigate to the first page of search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results != None, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "first",
+            )
+        )
+
+    def previous(self) -> "Search":
+        """Navigate to the previous page of search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results != None, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "previous",
+            )
+        )
+
+    def next(self) -> "Search":
+        """Navigate to the next page of search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results != None, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "next",
+            )
+        )
+
+    def last(self) -> "Search":
+        """Navigate to the last page of search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "last",
+            )
+        )
 
 
 class TVSeriesMetadata:
@@ -287,3 +407,28 @@ class Download:
             logger.info(f"{filename} - {size_in_mb}MB ✅")
             pop_range_in_session_headers()
             return save_to
+
+
+class Auto(Search):
+    """Download a whole series|seasons|episodes automatically"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def run(
+        self,
+        season: int = 1,
+        episode: int = 1,
+        limit: int = 1000000,
+        directory: str | Path = getcwd(),
+    ) -> None:
+        """Start the download process
+
+        Args:
+            season (int): Season offset
+            episode (int): Episode offset
+            limit (int, optional): Number of proceeding episodes to download before stopping.
+              Defaults to 1000000.
+            directory (str | Path, optional): Directory for saving the contents. Defaults to 'getcwd()'.
+        """
+        pass

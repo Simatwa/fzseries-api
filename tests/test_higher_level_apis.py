@@ -80,7 +80,7 @@ class TestDownload(unittest.TestCase):
     def test_results(self):
         self.assertIsInstance(self.download.results, models.DownloadEpisode)
 
-    @unittest.skip("Downloading an episode is reources intensive")
+    @unittest.skip("Downloading an episode is resources intensive")
     def test_save(self):
         saved_to = self.download.run()
         self.assertIsInstance(saved_to, Path)
@@ -103,7 +103,7 @@ class TestDownloadFromSearchByEpisode(unittest.TestCase):
     def test_results(self):
         self.assertIsInstance(self.download.results, models.DownloadEpisode)
 
-    @unittest.skip("Downloading an episode is reources intensive")
+    @unittest.skip("Downloading an episode is resources intensive")
     def test_save(self):
         saved_to = self.download.run()
         self.assertIsInstance(saved_to, Path)
