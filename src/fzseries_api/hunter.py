@@ -67,7 +67,7 @@ class Index:
         """
         utils.assert_membership(by, self.search_by_options)
         return Metadata.get_resource(
-            "https://fztvseries.live/search.php",
+            utils.get_absolute_url("/search.php"),
             params=dict(
                 search=query,
                 beginsearch="",

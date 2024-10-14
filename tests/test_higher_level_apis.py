@@ -7,6 +7,8 @@ from fzseries_api.filters import AlphabeticalOrderFilter
 from typing import Generator
 
 query = "love"
+
+
 class TestSearch(unittest.TestCase):
 
     def setUp(self):

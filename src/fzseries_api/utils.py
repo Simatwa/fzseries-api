@@ -10,7 +10,7 @@ import typing as t
 import re
 
 available_site_urls: tuple[str] = (
-    "https://tvseries.in",
+    "https://tvseries.in/",
     "https://mobiletvshows.site/",
     "https://fztvseries.live/",
 )
