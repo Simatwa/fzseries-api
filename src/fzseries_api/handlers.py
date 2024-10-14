@@ -19,12 +19,14 @@ def search_results_handler(contents: str) -> models.SearchResults:
     Returns:
         models.SearchResults: Modelled search results
     """
-    series_found = utils.souper(contents).find_all("div", {"class": "mainbox3"})[2:]
-
+    soup = utils.souper(contents)
+    series_found = soup.find_all("div", {"class": "mainbox3"})[2:]
     if series_found:
         series_items: list[dict[str, str]] = []
         for series in series_found:
             span = series.find("span")
+            if not span:
+                continue
             link = span.find("a")
             title = link.find("small").find("b").text.strip()
             url = link.get("href")
@@ -38,12 +40,12 @@ def search_results_handler(contents: str) -> models.SearchResults:
                     "about": about,
                 }
             )
-        navigators = series.find_all("div", {"class": "mainbox2"})
+        navigators = soup.find_all("div", {"class": "mainbox2"})
         first_page = previous_page = next_page = last_page = None
         if len(navigators) > 3:
             navigator = navigators[-1]
             for hyperlink in navigator.find_all("a"):
-                link_text = hyperlink.text
+                link_text = hyperlink.text.strip()
                 link = hyperlink.get("href")
                 if link_text == "First":
                     first_page = link
@@ -141,7 +143,7 @@ def episode_search_results_handler(contents: str) -> models.EpisodeSearchResults
         if len(navigators) > 3:
             navigator = navigators[-1]
             for hyperlink in navigator.find_all("a"):
-                link_text = hyperlink.text
+                link_text = hyperlink.text.strip()
                 link = hyperlink.get("href")
                 if link_text == "First":
                     first_page = link
@@ -176,7 +178,6 @@ def tvseries_page_handler(contents: str) -> models.TVSeries:
     soup = utils.souper(contents)
     series_info = soup.find_all("div", {"class": "mainbox3"})[-1]
     span = series_info.find("span")
-    url = span.find("a").get("href")
     title = span.find("a").text.strip()
     metadata = span.find_all("small")[-1]
     stripped_tags = re.sub(r"<\W?\w+\W?>", "\n", str(metadata))

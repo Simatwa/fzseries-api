@@ -56,9 +56,9 @@ class Search(hunter.Index):
     def html_contents(self) -> str:
         """Html contents of the search results page"""
         return (
-            self.search(query=self.query, by=self.by)
+            self.query.get_contents()
             if self._query_is_filter
-            else self.query.get_contents()
+            else self.search(query=self.query, by=self.by)
         )
 
     @property

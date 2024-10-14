@@ -60,7 +60,7 @@ class FilterBase(Filter):
 class IMDBTop250Filter(FilterBase):
     """IMDB TOp 250 series filter"""
 
-    url = get_absolute_url("/imdb250.php")
+    url = get_absolute_url("/imdbtop250.php")
 
 
 class PopularityFilter(FilterBase):
@@ -87,7 +87,7 @@ class FreshSeriesFilter(FilterBase):
     url = get_absolute_url("/freshseries.php")
 
 
-class TopRatedMiniseries(FilterBase):
+class TopRatedMiniseriesFilter(FilterBase):
     """Most rated miniseries filter"""
 
     url = get_absolute_url("/miniseries.php")
@@ -241,7 +241,7 @@ fzseriesFilterType = t.Union[
     AiredTodayFilter,
     TrendingFilter,
     FreshSeriesFilter,
-    TopRatedMiniseries,
+    TopRatedMiniseriesFilter,
     NetflixOriginalFilter,
     NetflixOriginalFilter,
     HBOOriginalFilter,
