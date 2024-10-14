@@ -330,6 +330,7 @@ class Download:
         quiet: bool = False,
         chunk_size: int = 512,
         resume: bool = False,
+        timeout: int = 30 * 60,
     ):
         """Save the episode in disk
         Args:
@@ -340,6 +341,7 @@ class Download:
             quiet (bool, optional): Not to stdout anything. Defaults to False.
             chunk_size (int, optional): Chunk_size for downloading files in KB. Defaults to 512.
             resume (bool, optional):  Resume the incomplete download. Defaults to False.
+            timeout (int, optional): Download timeout. Defaults to 30*60
 
         Raises:
             FileExistsError:  Incase of `resume=True` but the download was complete
@@ -370,7 +372,7 @@ class Download:
 
         default_content_length = 0
 
-        resp = hunter.session.get(episode_file_url, stream=True)
+        resp = hunter.session.get(episode_file_url, stream=True, timeout=timeout)
 
         size_in_bytes = int(resp.headers.get("content-length", default_content_length))
         if not size_in_bytes:
@@ -432,6 +434,7 @@ class Auto(Search):
         format: t.Literal["High MP4", "WEBM"] = "High MP4",
         directory: str | Path = getcwd(),
         include_metadata: bool = False,
+        download_trials: int = 10,
         **kwargs,
     ) -> Path:
         """Download and save episode using recommended best practices
@@ -440,52 +443,67 @@ class Auto(Search):
             episode (models.EpisodeInSearch): Episode in
             progress_bar(bool, optional): Show download progressbar. Defaults to True.
             format (t.Literal["High MP4", "WEBM"], optional): Defaults to "High MP4".
-            directory (str|Path, optional): Parent directory for saving the episode.
-                Defaults to `getcwd()`.
-            include_metadata(bool, optional): Add series title and episode-id in filename.
-                Defaults to False.
+            directory (str|Path, optional): Parent directory for saving the episode. Defaults to `getcwd()`.
+            include_metadata(bool, optional): Add series title and episode-id in filename. Defaults to False.
+            download_trials (int, optional): Number of trials before giving up on download. Defaults to 10.
 
+            - The rest are arguments for `Download.save`
         Returns:
             Path: Path where the episode has been saved to.
         """
         download = Download(episode=episode, format=format)
         link = download.last_url
-        # results_cache = download.results_cache
         series_name, episode_id, episode_filename = re.findall(
-            r"(.+)\s-\s(.+)\s-\s(.+)", episode.title
+            r"(.+)\s-\s(S\d+)(.+)", episode.title
         )[0]
         episode_dir = Path(directory) / series_name / episode_id
         makedirs(episode_dir, exist_ok=True)
-        return download.save(
-            link=link,
-            filename=episode.title if include_metadata else episode_filename,
-            dir=episode_dir,
-            progress_bar=progress_bar,
-            **kwargs,
-        )
+        filename = episode.title if include_metadata else episode_filename
+        for trials in range(download_trials):
+            try:
+                kwargs["resume"] = Path(episode_dir / filename).exists()
+                resp = download.save(
+                    link=link,
+                    filename=filename,
+                    dir=episode_dir,
+                    progress_bar=progress_bar,
+                    **kwargs,
+                )
+            except (KeyboardInterrupt, EOFError):
+                break
+
+            except Exception as e:
+                if trials >= download_trials:
+                    raise e
+            else:
+                return resp
 
     def run(
         self,
         season_offset: int = 1,
         episode_offset: int = 1,
+        one_season_only: bool = False,
+        ignore_errors: bool = False,
         limit: int = 1000000,
         **kwargs,
     ) -> list[Path]:
-        """Start the download process
+        """Initiate the download process
 
         Args:
-            season_offset (int): Season offset
-            episode_offset (int): Episode offset
-            limit (int, optional): Number of proceeding episodes to download before stopping.
-              Defaults to 1000000.
+            season_offset (int, optiona;): Season offset
+            episode_offset (int, optional): Episode offset
+            one_season_only (bool, optional): Download only one season and stop. Defaults to False.
+            limit (int, optional): Number of proceeding episodes to download before stopping. Defaults to 1000000.
+            ignore_errors(bool, optional): Ignore exceptions raised while downloading episodes. Defaults to False.
             progress_bar(bool, optional): Show download progressbar. Defaults to True.
             format (t.Literal["High MP4", "WEBM"], optional): Defaults to "High MP4".
-            directory (str|Path, optional): Parent directory for saving the series.
-                Defaults to `getcwd()`.
-            include_metadata(bool, optional): Add series title and episode-id in filename.
-                Defaults to False.
+            directory (str|Path, optional): Parent directory for saving the series. Defaults to `getcwd()`.
+            include_metadata(bool, optional): Add series title and episode-id in filename. Defaults to False.
+            download_trials (int, optional): Number of trials before giving up on download. Defaults to 10.
+
+            - The rest are arguments for `Download.save`
         Returns:
-            list[Path]: List of paths to downloaded-episodes
+            list[Path]: List of path to downloaded-episodes
         """
         results = self.results
         season_index = season_offset - 1
@@ -510,20 +528,29 @@ class Auto(Search):
                     else episode_metadata.episodes
                 ):
                     episodes_downloaded_count += 1
-                    downloaded_episodes_path.append(
-                        self.download_episode(episode, **kwargs)
-                    )
+                    try:
+                        saved_to = self.download_episode(episode, **kwargs)
+                        if saved_to:
+                            downloaded_episodes_path.append(saved_to)
+                    except Exception as e:
+                        if not ignore_errors:
+                            raise e
                     if episodes_downloaded_count >= limit:
                         break
 
-                if episodes_downloaded_count >= limit:
+                if one_season_only or episodes_downloaded_count >= limit:
                     break
 
         else:
             for result in self.get_all_results(stream=True, limit=limit):
                 for episode in result.episodes:
                     episodes_downloaded_count += 1
-                    downloaded_episodes_path.append(
-                        self.download_episode(episode, **kwargs)
-                    )
+                    try:
+                        saved_to = self.download_episode(episode, **kwargs)
+                        if saved_to:
+                            downloaded_episodes_path.append(saved_to)
+                    except Exception as e:
+                        if not ignore_errors:
+                            raise e
+
         return downloaded_episodes_path

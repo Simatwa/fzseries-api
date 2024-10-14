@@ -20,6 +20,6 @@ __repo__ = "https://github.com/Simatwa/fzseries-api"
 
 logger = logging.getLogger(__name__)
 
-from fzseries_api.main import Search, TVSeriesMetadata, EpisodeMetadata, Download
+from fzseries_api.main import Search, TVSeriesMetadata, EpisodeMetadata, Download, Auto
 
-__all__ = ["Search", "TVSeriesMetadata", "EpisodeMetadata", "Download"]
+__all__ = ["Search", "TVSeriesMetadata", "EpisodeMetadata", "Download", "Auto"]
