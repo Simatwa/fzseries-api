@@ -30,13 +30,13 @@ class Search(hunter.Index):
 
     def __init__(
         self,
-        query: str | fzseriesFilterType,
+        query: t.Union[str, fzseriesFilterType],
         by: t.Literal["series", "episodes"] = "series",
     ):
         """Initializes `Search`
 
         Args:
-            query (str|fzseriesFilterType): Series name/episode or filter.
+            query (t.Union[str, fzseriesFilterType]): Series name/episode or filter.
             by (t.Literal['series', 'episodes'], optional): Query category. Defaults to 'series'.
         """
         self.query = query
@@ -79,13 +79,18 @@ class Search(hunter.Index):
         return resp
 
     @property
-    def all_results(self) -> models.SearchResults:
+    def all_results(self) -> t.Union[models.SearchResults, models.EpisodeSearchResults]:
         """All search results"""
         return self.get_all_results()
 
     def get_all_results(
         self, stream: bool = False, limit: int = 1000000
-    ) -> models.SearchResults | t.Generator[models.SearchResults, None, None]:
+    ) -> (
+        t.Union[models.SearchResults, models.EpisodeSearchResults]
+        | t.Generator[
+            t.Union[models.SearchResults, models.EpisodeSearchResults], None, None
+        ]
+    ):
         """Fetch all search results
 
         Args:
@@ -93,7 +98,8 @@ class Search(hunter.Index):
             limit (int, optional): Total series not to exceed - `multiple of 20`. Defaults to 1000000.
 
         Returns:
-            models.SearchResults | t.Generator[models.SearchResults, None, None]
+            t.Union[models.SearchResults, models.EpisodeSearchResults] | t.Generator[
+            t.Union[models.SearchResults, models.EpisodeSearchResults], None, None]
         """
 
         def for_stream(self, limit):

@@ -7,8 +7,6 @@ from fzseries_api.filters import AlphabeticalOrderFilter
 from typing import Generator
 
 query = "love"
-
-
 class TestSearch(unittest.TestCase):
 
     def setUp(self):
@@ -21,9 +19,9 @@ class TestSearch(unittest.TestCase):
         self.assertIsInstance(self.search.results, models.SearchResults)
 
     def test_get_all_results(self):
-        results = self.search.get_all_results(limit=40)
+        results = self.search.get_all_results(limit=20)
         self.assertIsInstance(results, models.SearchResults)
-        self.assertEqual(len(results.series), 40)
+        self.assertEqual(len(results.series), 20)
 
     def test_get_all_results_stream(self):
         stream_get_results = self.search.get_all_results(stream=True, limit=40)
@@ -79,6 +77,42 @@ class TestSearchByEpisode(unittest.TestCase):
 
     def test_results(self):
         self.assertIsInstance(self.search.results, models.EpisodeSearchResults)
+
+    def test_get_all_results(self):
+        results = self.search.get_all_results(limit=20)
+        self.assertIsInstance(results, models.EpisodeSearchResults)
+        self.assertEqual(len(results.episodes), 20)
+
+    def test_get_all_results_stream(self):
+        stream_get_results = self.search.get_all_results(stream=True, limit=40)
+        self.assertIsInstance(stream_get_results, Generator)
+        for results in stream_get_results:
+            self.assertIsInstance(results, models.EpisodeSearchResults)
+
+    def test_next_navigation(self):
+        current_results = self.search.results
+        next_search = self.search.next()
+        self.assertIsInstance(next_search.results, models.EpisodeSearchResults)
+
+    def test_previous_navigation(self):
+        current_results = self.search.results
+        next_search = self.search.next()
+        next_search_results = next_search.results
+        previous_search = next_search.previous()
+        self.assertTrue(self.search.results == previous_search.results)
+
+    def test_last_navigation(self):
+        current_results = self.search.results
+        last_search = self.search.last()
+        last_search_results = last_search.results
+        self.assertIsNone(last_search_results.last_page)
+
+    def test_first_navigation(self):
+        current_results = self.search.results
+        last_search = self.search.last()
+        last_search_results = last_search.results
+        first_search = last_search.first()
+        self.assertIsNone(first_search.results.first_page)
 
 
 class TestTVSeriesMetadata(unittest.TestCase):

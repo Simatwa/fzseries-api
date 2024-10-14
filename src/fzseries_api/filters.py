@@ -6,7 +6,7 @@ along with page navigation filters
 import typing as t
 from abc import ABC, abstractmethod
 from fzseries_api.hunter import Metadata
-from fzseries_api.handlers import search_results_handler
+from fzseries_api.handlers import search_results_handler, episode_search_results_handler
 from fzseries_api.utils import get_absolute_url, assert_membership
 import fzseries_api.models as models
 import fzseries_api.exceptions as exceptions
@@ -208,18 +208,20 @@ class SearchNavigatorFilter(FilterBase):
 
     def __init__(
         self,
-        search_results: models.SearchResults,
+        search_results: t.Union[models.SearchResults, models.EpisodeSearchResults],
         target: t.Literal["first", "previous", "next", "last"] = "next",
     ):
         """Initializes `SearchNavigatorFilter`
 
         Args:
-            search_results (models.SearchResults): Search results.
+            search_results (t.Union[models.SearchResults, models.EpisodeSearchResults]): Search results.
             target (t.Literal["first", "previous", "next", "last"]): Page to navigate to. Defaults to "next".
         """
-        assert isinstance(search_results, models.SearchResults), (
+        assert isinstance(
+            search_results, (models.SearchResults, models.EpisodeSearchResults)
+        ), (
             f"search_results should be an instance of  {models.SearchResults}"
-            f" not {type(search_results)}"
+            f" or {models.EpisodeSearchResults} not {type(search_results)}"
         )
         assert target in self.targets, f"Target must be one of {self.targets}"
         target_url_mapper = {
@@ -233,6 +235,19 @@ class SearchNavigatorFilter(FilterBase):
             raise exceptions.TargetPageURLNotFound(
                 f"The targeted page, {target}, has no url"
             )
+        self.search_results = search_results
+
+    def get_results(self) -> t.Union[models.SearchResults, models.EpisodeSearchResults]:
+        """Get modelled version of the series list
+
+        Returns:
+            models.SearchResults: Results
+        """
+        return (
+            search_results_handler(self.get_contents())
+            if isinstance(self.search_results, models.SearchResults)
+            else episode_search_results_handler(self.get_contents())
+        )
 
 
 fzseriesFilterType = t.Union[

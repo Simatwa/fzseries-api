@@ -54,6 +54,19 @@ class SearchResults(BaseModel):
             f" total={len(self.series)}>"
         )
 
+    def __add__(self, other: "SearchResults") -> "SearchResults":
+        if not isinstance(other, SearchResults):
+            raise ValueError(
+                f"Operand must be an instance of {SearchResults} not {type(other)}"
+            )
+        return SearchResults(
+            series=self.series + other.series,
+            first_page=other.first_page,
+            previous_page=other.previous_page,
+            next_page=other.next_page,
+            last_page=other.last_page,
+        )
+
 
 class EpisodeFile(BaseModel):
     """Url to download episode
@@ -112,6 +125,19 @@ class EpisodeSearchResults(BaseModel):
         return f"<EpisodeSearchResults episodes={" | ".join([
             str(episode) for episode in self.episodes
         ])}"
+
+    def __add__(self, other: "EpisodeSearchResults") -> "EpisodeSearchResults":
+        if not isinstance(other, EpisodeSearchResults):
+            raise ValueError(
+                f"Operand must be an instance of {EpisodeSearchResults} not {type(other)}"
+            )
+        return EpisodeSearchResults(
+            episodes=self.episodes + other.episodes,
+            first_page=other.first_page,
+            previous_page=other.previous_page,
+            next_page=other.next_page,
+            last_page=other.last_page,
+        )
 
 
 class TVSeriesSeason(BaseModel):
