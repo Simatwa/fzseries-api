@@ -1,7 +1,8 @@
 import unittest
+from shutil import rmtree
 from os import remove
 from pathlib import Path
-from fzseries_api.main import Search, TVSeriesMetadata, EpisodeMetadata, Download
+from fzseries_api.main import Search, TVSeriesMetadata, EpisodeMetadata, Download, Auto
 import fzseries_api.models as models
 from fzseries_api.filters import AlphabeticalOrderFilter
 from typing import Generator
@@ -144,9 +145,8 @@ class TestEpisodeMetadata(unittest.TestCase):
         self.assertIsInstance(self.episode_metadata.html_contents, str)
 
     def test_results(self):
-        self.assertIsInstance(
-            self.episode_metadata.results, models.EpisodeSearchResults
-        )
+        results = self.episode_metadata.results
+        self.assertIsInstance(results, models.EpisodeSearchResults)
 
 
 class TestDownload(unittest.TestCase):
@@ -195,6 +195,26 @@ class TestDownloadFromSearchByEpisode(unittest.TestCase):
         self.assertIsInstance(saved_to, Path)
         self.assertTrue(saved_to.is_file())
         remove(saved_to)
+
+
+class TestAuto(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    @unittest.skip("Downloading series is resources intensive")
+    def test_with_series_query(self):
+        auto = Auto(query=AlphabeticalOrderFilter())
+        for path in auto.run(limit=1, quiet=True, progress_bar=True):
+            self.assertTrue(path.exists())
+            remove(path)
+
+    @unittest.skip("Downloading episode is resources intensive")
+    def test_with_episode_query(self):
+        auto = Auto(query="love", by="episodes")
+        for path in auto.run(limit=1, quiet=True, progress_bar=True):
+            self.assertTrue(path.exists())
+            remove(path)
 
 
 if __name__ == "__main__":

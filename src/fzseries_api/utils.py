@@ -5,7 +5,7 @@ as well as storing common variables across the package
 """
 
 from bs4 import BeautifulSoup as bts
-from os import path
+from os import path, getenv
 import typing as t
 import re
 
@@ -16,8 +16,14 @@ available_site_urls: tuple[str] = (
 )
 """Different domains providing same service"""
 
-default_site_url = available_site_urls[2]
+default_site_url = getenv("FZSERIES_DEFAULT_SITE", available_site_urls[0])
 """Default domain"""
+
+assert default_site_url in available_site_urls, (
+    f"Unrecognised default site url '{default_site_url}'. "
+    f"Needs to be one of  {available_site_urls}. "
+    "Make necesary changes using environment variable 'FZSERIES_DEFAULT_SITE'"
+)
 
 
 def souper(contents: str) -> bts:

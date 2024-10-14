@@ -182,9 +182,13 @@ def tvseries_page_handler(contents: str) -> models.TVSeries:
     metadata = span.find_all("small")[-1]
     stripped_tags = re.sub(r"<\W?\w+\W?>", "\n", str(metadata))
     about = stripped_tags.strip().split("\n")[0]
-    year, genres, imdb_rating, last_updated = re.findall(
-        r".*:\s\(?(.*)\)?", stripped_tags
-    )
+    try:
+        year, genres, imdb_rating, last_updated = re.findall(
+            r".*:\s\(?(.*)\)?", stripped_tags
+        )
+    except:
+        year = genres = imdb_rating = last_updated = None
+
     season_items: list[dict[str, str | int]] = []
     for number, season in enumerate(
         soup.find("div", {"itemprop": "containsSeason"}).find_all(
@@ -203,10 +207,14 @@ def tvseries_page_handler(contents: str) -> models.TVSeries:
     return models.TVSeries(
         title=title,
         genres=genres,
-        year=year.replace(")", ""),
+        year=year.replace(")", "") if year else year,
         about=about,
         imdb_rating=imdb_rating,
-        last_updated=datetime.strptime(last_updated, "%d %b, %Y"),
+        last_updated=(
+            datetime.strptime(last_updated, "%d %b, %Y")
+            if last_updated
+            else last_updated
+        ),
         seasons=season_items,
     )
 

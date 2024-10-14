@@ -166,11 +166,11 @@ class TVSeries(BaseModel):
     """
 
     title: str
-    genres: str
-    year: str
+    genres: str | None
+    year: str | None
     about: str
-    imdb_rating: float
-    last_updated: datetime
+    imdb_rating: float | None
+    last_updated: datetime | None
     seasons: list[TVSeriesSeason]
 
     def __str__(self):
