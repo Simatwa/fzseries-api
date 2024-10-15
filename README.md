@@ -14,7 +14,7 @@
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com/Simatwa/fzseries-api"/></a>
 </p>
 
-> Unofficial Python SDK/API for fztvseries.com
+> Unofficial Python SDK/API for fztvseries.live
 
 ```python
 from fzseries_api import Auto

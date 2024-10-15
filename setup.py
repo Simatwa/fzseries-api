@@ -25,7 +25,7 @@ setup(
     author="Smartwa",
     maintainer="Smartwa",
     author_email="simatwacaleb@proton.me",
-    description="Unofficial Python SDK/API for fztvseries.com",
+    description="Unofficial Python SDK/API for fztvseries.live",
     packages=find_packages("src"),
     package_dir={"": "src"},
     url="https://github.com/Simatwa/fzseries-api",
