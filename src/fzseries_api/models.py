@@ -7,7 +7,6 @@ The models are not limited to:
 - In search series results
 - Specific series metadata
 - Specific episode file metadata
-- Recommended series
 - Download links
 """
 

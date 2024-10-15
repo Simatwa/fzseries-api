@@ -4,7 +4,7 @@ of automating the process of downloading a TV-series
 from fztvseries.live. 
 
 Right from performing `search` query down to downloading
-them in your desired format.
+them in the desired format.
 """
 
 from importlib import metadata

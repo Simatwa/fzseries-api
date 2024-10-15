@@ -1,6 +1,6 @@
 """
 This module does the ground-work of interacting
-with fzmovies.net in fetching the required resources 
+with fzseries.live in fetching the required resources 
 that revolves around:
 - Load index page
 - Perform search

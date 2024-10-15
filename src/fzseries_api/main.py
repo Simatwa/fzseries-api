@@ -5,11 +5,11 @@ with `hunter` (models) while providing
 a higher level API.
 
 It achieves this through 4 classes
-- `Search` : Movie look-up
-- `Navigate` : Progress to the targeted movie
-- `DownloadLinks` : Links to the downloadable movie file
-- `Download` : Download the movie file
-- `Auto` : Ultimately download items of index 0.
+- `Search` : Series look-up
+- `TVSeriesMatdata` :Extracts metadata for a particular Tvseriese
+- `EpisodeMetadata` : Extracts episodes' metadata for a specific season
+- `Download` : Downloads an episode
+- `Auto` :: Utilises the preceeding 4 classes to download episodes.
 """
 
 from tqdm import tqdm
@@ -28,7 +28,7 @@ import fzseries_api.exceptions as exceptions
 
 
 class Search(hunter.Index):
-    """Perform search query and generate models"""
+    """Series look-up"""
 
     def __init__(
         self,
