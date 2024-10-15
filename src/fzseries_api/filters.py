@@ -40,6 +40,10 @@ class Filter(ABC):
 class FilterBase(Filter):
     """Parent base class for Filter classes"""
 
+    init_with_args: bool = False
+    """Specify whether the filter needs argument
+    while initializing it"""
+
     def get_contents(self) -> str:
         """Fetch Html contents of the url
 
@@ -114,6 +118,8 @@ class CartoonFilter(FilterBase):
 class GenreFilter(FilterBase):
     """Series genre filter"""
 
+    init_with_args = True
+
     genre_options = (
         "Action",
         "Adventure",
@@ -173,6 +179,8 @@ class GenreFilter(FilterBase):
 class AlphabeticalOrderFilter(FilterBase):
     """Series name Alphabetical order filter"""
 
+    init_with_args = True
+
     available_ranges = (
         "AtoC",
         "DtoC",
@@ -203,6 +211,8 @@ class AlphabeticalOrderFilter(FilterBase):
 
 class SearchNavigatorFilter(FilterBase):
     """Navigates movie-listing-page"""
+
+    init_with_args = True
 
     targets = ["first", "previous", "next", "last"]
 

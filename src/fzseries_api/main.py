@@ -26,6 +26,13 @@ import fzseries_api.handlers as handlers
 import fzseries_api.utils as utils
 import fzseries_api.exceptions as exceptions
 
+try:
+    import click
+
+    cli_deps_installed = True
+except ImportError:
+    cli_deps_installed = False
+
 
 class Search(hunter.Index):
     """Series look-up"""
@@ -360,7 +367,8 @@ class Download:
                 hunter.session.headers.pop("Range")
 
         if resume:
-            assert path.exists(save_to), f"File not found in path - '{save_to}'"
+            if not path.exists(save_to):
+                raise FileNotFoundError(f"File not found in path - '{save_to}'")
             current_downloaded_size = path.getsize(save_to)
             # Set the headers to resume download from the last byte
             hunter.session.headers.update(
@@ -435,6 +443,7 @@ class Auto(Search):
         directory: str | Path = getcwd(),
         include_metadata: bool = False,
         download_trials: int = 10,
+        confirm: bool = False,
         **kwargs,
     ) -> Path:
         """Download and save episode using recommended best practices
@@ -446,11 +455,21 @@ class Auto(Search):
             directory (str|Path, optional): Parent directory for saving the episode. Defaults to `getcwd()`.
             include_metadata(bool, optional): Add series title and episode-id in filename. Defaults to False.
             download_trials (int, optional): Number of trials before giving up on download. Defaults to 10.
+            confirm (bool, optional): Ask user whether to proceed with the download or not. Defaults to False.
 
             - The rest are arguments for `Download.save`
         Returns:
             Path: Path where the episode has been saved to.
         """
+        if confirm:
+            if not cli_deps_installed:
+                raise Exception(
+                    "CLI dependency is missing. Reinstall "
+                    "fzseries-api with 'cli' extras ie. "
+                    "'pip install fzseries-api[cli]'"
+                )
+            if not click.confirm(f'Download "{episode.title}"'):
+                return
         download = Download(episode=episode, format=format)
         link = download.last_url
         series_name, episode_id, episode_filename = re.findall(
@@ -459,9 +478,19 @@ class Auto(Search):
         episode_dir = Path(directory) / series_name / episode_id
         makedirs(episode_dir, exist_ok=True)
         filename = episode.title if include_metadata else episode_filename
+        quiet = kwargs.get("quiet")
+        kwargs["quiet"] = True
+
+        def stdout(info):
+            if quiet:
+                pass
+            else:
+                print(info)
+
         for trials in range(download_trials):
             try:
                 kwargs["resume"] = Path(episode_dir / filename).exists()
+                stdout(f"[T {trials+1}/{download_trials}] {episode.title}")
                 resp = download.save(
                     link=link,
                     filename=filename,
@@ -469,7 +498,8 @@ class Auto(Search):
                     progress_bar=progress_bar,
                     **kwargs,
                 )
-            except (KeyboardInterrupt, EOFError):
+
+            except (KeyboardInterrupt, EOFError, FileExistsError, FileNotFoundError):
                 break
 
             except Exception as e:
@@ -500,6 +530,7 @@ class Auto(Search):
             directory (str|Path, optional): Parent directory for saving the series. Defaults to `getcwd()`.
             include_metadata(bool, optional): Add series title and episode-id in filename. Defaults to False.
             download_trials (int, optional): Number of trials before giving up on download. Defaults to 10.
+            confirm (bool, optional): Ask user whether to proceed with the download or not. Defaults to False.
 
             - The rest are arguments for `Download.save`
         Returns:
@@ -510,12 +541,6 @@ class Auto(Search):
         episode_index = episode_offset - 1
         episodes_downloaded_count = 0
         downloaded_episodes_path: list[Path] = []
-
-        def stdout(info):
-            if kwargs.get("quiet"):
-                pass
-            else:
-                print(info)
 
         if isinstance(results, models.SearchResults):
             tvseries_metadata = TVSeriesMetadata(results.series[0]).results

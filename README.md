@@ -46,7 +46,7 @@ $ fzseries download <QUERY>
 ```
 
 <h2>
-<code>fzseries download --help</code>
+<code>$ fzseries download --help</code>
 </h2>
 
 ```
@@ -74,9 +74,35 @@ Options:
   --one-season-only               Download only one season and stop.
   --ignore-errors                 Ignore exceptions raised while downloading
                                   episode
+  --confirm                       Confirm episodes before downloading them
   --help                          Show this message and exit.
+```
+
+<details>
+<summary>
+
+<code>$ fzseries --help</code>
+
+</summary>
 
 ```
+Usage: fzseries [OPTIONS] COMMAND [ARGS]...
+
+  Unofficial Python SDK/API for fztvseries.live
+
+Options:
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+
+Commands:
+  discover  Search TV series using title or filter
+  download  Download a whole series|seasons|episodes automatically
+  metadata  Access particular series metadata - seasons and episodes
+
+  Repository : https://github.com/Simatwa/fzseries-api
+```
+
+</details>
 
 > [!NOTE]
 > **fzseries_api** provides a lot more than what you've just gone through here. Documenting isn't my thing, but I will try to update it as time goes by. Additionally, I cannot document this any better than the code itself; therefore, consider going through it.
