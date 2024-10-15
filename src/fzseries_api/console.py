@@ -1,8 +1,12 @@
 import click
 import os
+import fzseries_api
 
 
 @click.group(epilog="This script has no any official relation with fztseries.live")
+@click.version_option(
+    version=fzseries_api.__version__, prog_name="fzseries", package_name="fzseries_api"
+)
 def fzseries():
     """Unofficial Python SDK/API for fztvseries.live"""
     pass
