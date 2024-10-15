@@ -20,9 +20,7 @@ search_filters: list[str] = [
 
 
 @click.group(epilog=f"Repository : {fzseries_api.__repo__}")
-@click.version_option(
-    version=fzseries_api.__version__, prog_name="fzseries", package_name="fzseries_api"
-)
+@click.version_option(version=fzseries_api.__version__)
 def fzseries():
     """Unofficial Python SDK/API for fztvseries.live"""
     pass
@@ -245,7 +243,7 @@ class Commands:
             fzseriesFilterType,
         )
 
-        filters_obj = [
+        filters_obj: list[fzseriesFilterType] = [
             IMDBTop250Filter,
             PopularityFilter,
             AiredTodayFilter,

@@ -25,8 +25,8 @@ Auto(
 
 # Will show download progressbar
 """
-E01 - eps1.0_hellofriend.mov
-179 MB ████████████████████                    47%|
+[T 1/10] Mr. Robot - S01E01 - eps1.0_hellofriend.mov
+179 MB ████████████████████                     47%|
 """
 ```
 
