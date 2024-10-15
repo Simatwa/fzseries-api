@@ -63,7 +63,7 @@ Options:
   -l, --limit INTEGER             Number of proceeding episodes to download
                                   before stopping
   -t, --download-trials INTEGER   Number of trials before giving up on
-                                  download
+                                  downloading an episode
   -r, --request-timeout INTEGER   Http request timeout while downloading
                                   episodes in seconds.
   -f, --format [High MP4|WEBM]    Preffered movie download format
@@ -77,6 +77,7 @@ Options:
   --ignore-errors                 Ignore exceptions raised while downloading
                                   episode
   --help                          Show this message and exit.
+
 ```
 
 > [!NOTE]
