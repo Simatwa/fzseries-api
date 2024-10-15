@@ -33,9 +33,7 @@ E01 - eps1.0_hellofriend.mov
 ## Installation
 
 ```sh
-$ pip install fzseries-api
-# or
-$ pip install git+https://github.com/Simatwa/fzseries-api
+$ pip install fzseries-api[cli]
 ```
 
 Alternatively, you can download standalone executable for your system from [here](https://github.com/Simatwa/fzseries-api/releases/latest).
