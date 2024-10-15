@@ -80,10 +80,9 @@ Options:
 
 <details>
 <summary>
-
 <code>$ fzseries --help</code>
-
 </summary>
+
 
 ```
 Usage: fzseries [OPTIONS] COMMAND [ARGS]...
@@ -101,7 +100,6 @@ Commands:
 
   Repository : https://github.com/Simatwa/fzseries-api
 ```
-
 </details>
 
 > [!NOTE]
