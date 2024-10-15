@@ -3,7 +3,7 @@ import os
 import fzseries_api
 
 
-@click.group(epilog="This script has no any official relation with fztseries.live")
+@click.group(epilog=f"Repository : {fzseries_api.__repo__}")
 @click.version_option(
     version=fzseries_api.__version__, prog_name="fzseries", package_name="fzseries_api"
 )
@@ -49,7 +49,7 @@ class Commands:
         "-t",
         "--download-trials",
         type=click.INT,
-        help="Number of trials before giving up on download",
+        help="Number of trials before giving up on downloading an episode",
         default=10,
     )
     @click.option(

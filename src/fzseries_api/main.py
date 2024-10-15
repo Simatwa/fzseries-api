@@ -440,7 +440,7 @@ class Auto(Search):
         """Download and save episode using recommended best practices
 
         Args:
-            episode (models.EpisodeInSearch): Episode in
+            episode (models.EpisodeInSearch): Episode
             progress_bar(bool, optional): Show download progressbar. Defaults to True.
             format (t.Literal["High MP4", "WEBM"], optional): Defaults to "High MP4".
             directory (str|Path, optional): Parent directory for saving the episode. Defaults to `getcwd()`.
@@ -490,8 +490,8 @@ class Auto(Search):
         """Initiate the download process
 
         Args:
-            season_offset (int, optiona;): Season offset
-            episode_offset (int, optional): Episode offset
+            season_offset (int, optiona;): Season number to start downloading from. Defaults to 1.
+            episode_offset (int, optional): Episode number to start downloading from. Defaults to 1.
             one_season_only (bool, optional): Download only one season and stop. Defaults to False.
             limit (int, optional): Number of proceeding episodes to download before stopping. Defaults to 1000000.
             ignore_errors(bool, optional): Ignore exceptions raised while downloading episodes. Defaults to False.
