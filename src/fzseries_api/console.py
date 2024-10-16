@@ -39,14 +39,14 @@ class Commands:
         default="series",
     )
     @click.option(
-        "-so",
+        "-s",
         "--season-offset",
         type=click.INT,
         help="Season number to start downloading from",
         default=1,
     )
     @click.option(
-        "-eo",
+        "-e",
         "--episode-offset",
         type=click.INT,
         help="Episode number to start downloading from",
