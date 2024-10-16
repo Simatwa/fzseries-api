@@ -303,12 +303,44 @@ class Commands:
                 break
 
 
+class Utils:
+    """Utility commands"""
+
+    @staticmethod
+    @click.command()
+    @click.argument(
+        "domain",
+        type=click.Choice(
+            [
+                "https://tvseries.in/",
+                "https://mobiletvshows.site/",
+                "https://fztvseries.live/",
+            ]
+        ),
+    )
+    def set_domain(domain):
+        """Set domain for making requests to"""
+        #    f'export FZSERIES_DEFAULT_SITE="{domain}"'
+        raise NotImplementedError("Function not yet implemented")
+
+
+class EntryGroup:
+    """Click command groups"""
+
+    @staticmethod
+    @fzseries.group()
+    def utils():
+        """Utility commands for fzseries"""
+        pass
+
+
 def main():
     """Console entrypoint"""
     try:
         fzseries.add_command(Commands.download)
         fzseries.add_command(Commands.metadata)
         fzseries.add_command(Commands.discover)
+        EntryGroup.utils.add_command(Utils.set_domain)
         fzseries()
     except Exception as e:
         click.secho(
