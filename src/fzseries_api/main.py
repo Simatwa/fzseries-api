@@ -323,8 +323,7 @@ class Download:
             Path: Absolute path to the downloaded episode
         """
         kwargs["link"] = self.last_url
-        if not kwargs.get("filename"):
-            kwargs["filename"] = self.results_cache.filename
+        kwargs.setdefault("filename", self.results_cache.filename)
         return self.save(**kwargs)
 
     @classmethod
