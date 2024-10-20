@@ -80,10 +80,10 @@ class Index:
 
 class Metadata:
     """Fetch html contents for :
-    - Movie page
-    - To-download page
-    - To-download-links page
-    - Movies m
+    - Series page
+    - Seasons page
+    - Episodes page
+    - Download links
     """
 
     session_expired_pattern = r".*Your download keys have expired.*"
