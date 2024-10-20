@@ -40,14 +40,103 @@ Alternatively, you can download standalone executable for your system from [here
 
 ## Usage 
 
+<details>
+
+<summary>
+
+<h3>1. Developers</h3>
+
+</summary>
+
+#### Search Series Using Title
+
+```python
+from fzseries_api import Search, TVSeriesMetadata, EpisodeMetadata, Download
+from fzseries_api.models import SearchResults, TVSeriesSeason, EpisodeInSearch
+
+search = Search(
+    query = "Into the Badlands"
+)
+
+series_search_results : list[SearchResults] = search.results.series
+
+#First series metadata
+target_series_metadata = TVSeriesMetadata(
+    series_search_results[0]
+)
+
+series_seasons:list[TVSeriesSeason] = target_series_metadata.results.seasons
+
+# First season metadata
+season_one_metadata = EpisodeMetadata(
+    series_seasons[0]
+)
+
+season_one_episodes: list[EpisodeInSearch] = season_one_metadata.results.episodes
+
+# download first episode
+saved_to = Download(
+    season_one_episodes[0]
+).run()
+
+print(
+    saved_to
+)
+```
+
+#### Search Series Using Filters
+
+```python
+from fzseries_api import Search, TVSeriesMetadata, EpisodeMetadata, Download
+from fzseries_api.models import SearchResults, TVSeriesSeason, EpisodeInSearch
+from fzseries_api.filters import GenreFilter
+
+search = Search(
+    query = GenreFilter(
+        genre="Sci-Fi"
+    )
+)
+
+series_search_results : list[SearchResults] = search.results.series
+
+#First series metadata
+target_series_metadata = TVSeriesMetadata(
+    series_search_results[0]
+)
+
+series_seasons:list[TVSeriesSeason] = target_series_metadata.results.seasons
+
+# First season metadata
+season_one_metadata = EpisodeMetadata(
+    series_seasons[0]
+)
+
+season_one_episodes: list[EpisodeInSearch] = season_one_metadata.results.episodes
+
+# download first episode
+saved_to = Download(
+    season_one_episodes[0]
+).run()
+
+print(
+    saved_to
+)
+```
+
+</details>
+
+
+### 2. CLI
+
 ```sh
 $ fzseries download <QUERY>
 # e.g fzseries download "Mr. Robot"
 ```
 
-<h2>
+<details>
+<summary>
 <code>$ fzseries download --help</code>
-</h2>
+</summary>
 
 ```
 Usage: fzseries download [OPTIONS] QUERY
@@ -77,6 +166,7 @@ Options:
   --confirm                       Confirm episodes before downloading them
   --help                          Show this message and exit.
 ```
+</details>
 
 <details>
 <summary>
