@@ -337,6 +337,8 @@ class Download:
         chunk_size: int = 512,
         resume: bool = False,
         timeout: int = 30 * 60,
+        leave: bool = True,
+        colour: str = "cyan",
     ):
         """Save the episode in disk
         Args:
@@ -348,6 +350,8 @@ class Download:
             chunk_size (int, optional): Chunk_size for downloading files in KB. Defaults to 512.
             resume (bool, optional):  Resume the incomplete download. Defaults to False.
             timeout (int, optional): Download timeout. Defaults to 30*60
+            leave (bool, optional): Keep all traces of the progressbar. Defaults to True.
+            colour (str, optional): Progress bar display color. Defaults to "cyan".
 
         Raises:
             FileExistsError:  Incase of `resume=True` but the download was complete
@@ -373,9 +377,8 @@ class Download:
             hunter.session.headers.update(
                 {"Range": f"bytes={current_downloaded_size}-"}
             )
-            current_downloaded_size_in_mb = round(
-                current_downloaded_size / 1000000, 2
-            )  # convert to mb
+            current_downloaded_size_in_mb = current_downloaded_size / 1000000
+            # convert to mb
 
         default_content_length = 0
 
@@ -397,24 +400,27 @@ class Download:
                 size_in_bytes != current_downloaded_size
             ), f"Download completed for the file in path - '{save_to}'"
 
-        size_in_mb = round(size_in_bytes / 1000000, 2) + current_downloaded_size_in_mb
-        chunk_size_in_bytes = chunk_size * 1024
+        size_in_mb = (size_in_bytes / 1_000_000) + current_downloaded_size_in_mb
+        chunk_size_in_bytes = chunk_size * 1_000
 
         saving_mode = "ab" if resume else "wb"
         if progress_bar:
             if not quiet:
                 print(f"{filename}")
             with tqdm(
-                total=size_in_bytes + current_downloaded_size,
-                bar_format="%s%d MB %s{bar} %s{l_bar}%s"
-                % (Fore.GREEN, size_in_mb, Fore.CYAN, Fore.YELLOW, Fore.RESET),
-                initial=current_downloaded_size,
+                desc="Downloading",
+                total=round(size_in_mb, 1),
+                bar_format="{l_bar}{bar}{r_bar}",
+                initial=current_downloaded_size_in_mb,
+                unit="Mb",
+                colour=colour,
+                leave=leave,
             ) as p_bar:
                 # p_bar.update(current_downloaded_size)
                 with open(save_to, saving_mode) as fh:
                     for chunks in resp.iter_content(chunk_size=chunk_size_in_bytes):
                         fh.write(chunks)
-                        p_bar.update(chunk_size_in_bytes)
+                        p_bar.update(round(chunk_size_in_bytes / 1_000_000, 1))
                 pop_range_in_session_headers()
                 return save_to
         else:

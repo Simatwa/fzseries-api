@@ -88,9 +88,20 @@ class Commands:
         type=click.Path(exists=True, file_okay=False, writable=True, resolve_path=True),
     )
     @click.option(
+        "-c",
+        "--color",
+        help="Progressbar color - cyan",
+        default="cyan",
+    )
+    @click.option(
         "--enable-progressbar/--disable-progressbar",
         default=True,
-        help="Show or hide downloading progress bar",
+        help="Show or hide downloading progress bar - True",
+    )
+    @click.option(
+        "--trace/--no-trace",
+        help="Keep traces of the progressbar upon completion - True",
+        default=True,
     )
     @click.option(
         "--quiet", is_flag=True, help="Do not stdout any interactive messages"
@@ -121,7 +132,9 @@ class Commands:
         request_timeout,
         format,
         directory,
+        color,
         enable_progressbar,
+        trace,
         quiet,
         include_metadata,
         one_season_only,
@@ -143,6 +156,8 @@ class Commands:
             format=format,
             directory=directory,
             progress_bar=enable_progressbar,
+            colour=color,
+            leave=trace,
             quiet=quiet,
             include_metadata=include_metadata,
             confirm=confirm,
