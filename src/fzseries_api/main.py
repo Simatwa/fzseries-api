@@ -13,7 +13,6 @@ It achieves this through 4 classes
 """
 
 from tqdm import tqdm
-from colorama import Fore
 from os import path, getcwd, makedirs
 from pathlib import Path
 import typing as t
