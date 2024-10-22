@@ -338,6 +338,7 @@ class Download:
         timeout: int = 30 * 60,
         leave: bool = True,
         colour: str = "cyan",
+        simple: bool = False,
     ):
         """Save the episode in disk
         Args:
@@ -351,6 +352,7 @@ class Download:
             timeout (int, optional): Download timeout. Defaults to 30*60
             leave (bool, optional): Keep all traces of the progressbar. Defaults to True.
             colour (str, optional): Progress bar display color. Defaults to "cyan".
+            simple (bool, optional): Show percentage and bar only in progressbar. Deafults to False.
 
         Raises:
             FileExistsError:  Incase of `resume=True` but the download was complete
@@ -409,7 +411,11 @@ class Download:
             with tqdm(
                 desc="Downloading",
                 total=round(size_in_mb, 1),
-                bar_format="{l_bar}{bar}{r_bar}",
+                bar_format=(
+                    "{l_bar}{bar} | %(size)s MB" % (dict(size=round(size_in_mb, 1)))
+                    if simple
+                    else "{l_bar}{bar}{r_bar}"
+                ),
                 initial=current_downloaded_size_in_mb,
                 unit="Mb",
                 colour=colour,

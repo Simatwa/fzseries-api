@@ -122,6 +122,9 @@ class Commands:
     @click.option(
         "--confirm", is_flag=True, help="Confirm episodes before downloading them"
     )
+    @click.option(
+        "--simple", is_flag=True, help="Show percentage and bar only in progressbar"
+    )
     def download(
         query,
         by,
@@ -140,6 +143,7 @@ class Commands:
         one_season_only,
         ignore_errors,
         confirm,
+        simple,
     ):
         """Download a whole series|seasons|episodes automatically"""
         from fzseries_api import Auto
@@ -161,6 +165,7 @@ class Commands:
             quiet=quiet,
             include_metadata=include_metadata,
             confirm=confirm,
+            simple=simple,
         )
 
     @click.command()
